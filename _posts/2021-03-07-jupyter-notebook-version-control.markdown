@@ -3,7 +3,7 @@ layout: post
 title:  "Jupyter Notebook Version Control"
 description: Jupyter notebook 버전 컨트롤.
 date:   2021-03-06 21:03:36 +0530
-categories: python Jupyterss
+categories: python Jupyter
 ---
 Jupyter을 이용해 코딩을 할 때 git을 이용한 version control이 용이하지 않을 때가 있다. 간단한 figure 하나만 바뀌어도 아래와 같이 가시성이 떨어지는 diff message가 나온다. 
 
@@ -124,5 +124,18 @@ nbdiff-web commit1 commit2 filepath
 결과물: 
 ![_config.yml]({{ site.baseurl }}/assets/figs/2021-03-07-jupyter-notebook-version-control/Untitled.png)
 <br />
+
+
+
+* git에서 default로 nbdime 사용하기
+
+아래 명령어를 사용하면, git diff 명령어에서 ipynb 파일만 nbdiff로 볼 수 있다. 
+
+```
+nbdime config-git --enable --global
+```
+
+<br />
+
 ### reference
 [https://nextjournal.com/schmudde/how-to-version-control-jupyter](https://nextjournal.com/schmudde/how-to-version-control-jupyter)
