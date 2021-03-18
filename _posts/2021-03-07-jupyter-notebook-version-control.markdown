@@ -5,6 +5,8 @@ description: Jupyter notebook 버전 컨트롤.
 date:   2021-03-06 21:03:36 +0530
 categories: python Jupyter
 ---
+Jupyter notebook 버전 컨트롤과 diff 확인, 어떻게 해야할까?
+
 Jupyter을 이용해 코딩을 할 때 git을 이용한 version control이 용이하지 않을 때가 있다. 간단한 figure 하나만 바뀌어도 아래와 같이 가시성이 떨어지는 diff message가 나온다. 
 
 ```python
