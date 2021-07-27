@@ -3,7 +3,7 @@ layout: post
 title:  "Jupyter Notebook Version Control"
 description: Jupyter notebook 버전 컨트롤.
 date:   2021-03-06 21:03:36 +0530
-categories: python Jupyter
+categories: Python Jupyter_notebook
 ---
 Jupyter notebook 버전 컨트롤과 diff 확인, 어떻게 해야할까?
 
