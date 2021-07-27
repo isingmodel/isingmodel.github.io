@@ -4,7 +4,7 @@ title:  "sublime text와 pyenv 연동하기"
 date:   2021-07-26 15:01:16
 categories: Python Sublime_Text
 ---
-## sublime text와 pyenv 연동하기
+sublime text와 pyenv을 연동하는 방법을 소개한다. 
 
 Macbook에 Sublime Text를 설치했더니, pyenv에서 설정한대로 python version이 잡히지 않았다. command line에서 pyenv global을 사용해 내가 원하는 파이썬 버전을 global python 버전으로 설정해도, sublime text에서는 Mac의 기본 python 버전을 인터프리터로 사용했다. 이를 해결하기 위해 이런저런 시도를 해보았다. 결과적으로 Sublime Text의 sublime-build파일을 수정하는 형태로 이를 해결했는데, 그 과정을 간략히 소개한다. 세팅 환경은 Mac 기준이다. 
 
