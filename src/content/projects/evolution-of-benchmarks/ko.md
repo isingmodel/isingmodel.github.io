@@ -1,147 +1,118 @@
 ---
 title: "프런티어 모델 벤치마크의 진화"
-description: "OpenAI, Google, Anthropic이 프런티어 AI 모델을 소개할 때 내세운 벤치마크를 출시 페이지 기준으로 모은 데이터셋."
+description: "OpenAI, Google, Anthropic의 모델 발표에 등장하는 평가가 시간에 따라 어떻게 바뀌는지 추적하는 프로젝트."
 status: active
 updated: 2026-10-04
 repo: isingmodel/evolution_of_benchmarks_in_frontier_models
 cover:
   src: ./charts/benchmark_evolution.png
-  alt: "OpenAI, Google, Anthropic의 모델 출시를 시간순으로 놓고, 각 출시를 벤치마크 과제 유형 비율의 원그래프로 그린 타임라인"
+  alt: "2022년 말부터 2026년 9월까지 Anthropic, Google, OpenAI의 모델 릴리스를 세 줄의 타임라인에 놓고, 각 릴리스를 보고된 벤치마크의 과제 유형 비율 원그래프로 그린 그림"
 facts:
   - { label: "대상", value: "OpenAI, Google, Anthropic" }
-  - { label: "추적한 릴리스", value: "59" }
-  - { label: "벤치마크 언급", value: "791" }
-  - { label: "카탈로그 항목", value: "286" }
+  - { label: "추적한 모델", value: "59" }
+  - { label: "발표", value: "55" }
+  - { label: "관측된 벤치마크", value: "286" }
+  - { label: "데이터 기준일", value: "2026-09-30" }
   - { label: "라이선스", value: "Apache-2.0" }
 ---
-이 프로젝트는 OpenAI, Google, Anthropic의 프런티어 모델 출시 페이지에 실린 벤치마크와 평가 이름을 추적한다. 그 벤치마크 구성이 시간에 따라 어떻게 바뀌었는지, 곧 학술 시험과 정적인 문답 세트에서 코딩 환경, 도구 사용, 컴퓨터 조작 같은 실제 업무에 가까운 과제로 옮겨 가는 과정을 따라간다.
+각 모델의 벤치마크 구성에는 어떤 종류의 과제가 들어 있을까? 그 구성은 어떻게 바뀌고, 어떤 벤치마크가 공통 기준점이 되며, 어떤 벤치마크가 이후 릴리스에 다시 등장할까? 이 프로젝트는 릴리스 이력을 한눈에 보여 주는 그림을, 출처가 연결된 카탈로그와 벤치마크별 보고 이력에 대한 재현 가능한 분석으로 잇는다.
 
-## 데이터셋
+근거는 선별한 공개 출시 페이지에 등장하는 이름이다. 결과, 비교, 각주, 벤치마크 묶음의 구성 요소, 파트너 인용이 모두 포함된다. 이름이 등장한다는 사실만으로 새 모델의 점수가 있다거나, 그 벤치마크가 두드러지게 다뤄졌다거나, 학습에 쓰였다는 뜻은 아니다.
 
-근거의 단위는 공개된 모델 출시 페이지에 등장한 벤치마크 언급이다. 어떤 벤치마크가 그 페이지에 나오면 해당 모델과 연결한다. 기술 보고서, 시스템 카드, 벤치마크 논문은 저자, 별칭, 과제 설계 같은 카탈로그 메타데이터를 검증하는 데 쓴다.
+현재 데이터는 2026년 9월 30일까지의 모델 행 59개와 서로 다른 발표 55건을 담고 있으며, 릴리스 탐색은 2026년 10월 4일까지 확인했다. 모델 행은 이름이 붙은 모델 하나이고, 함께 발표된 변형 모델들은 발표 하나를 공유한다. 벤치마크 하나는 표준 카탈로그의 항목 하나를 뜻한다. 별칭은 같은 항목으로 묶이고, 명시된 버전은 따로 센다.
 
-| 제공사 | 릴리스 | 첫 릴리스 | 최근 릴리스 |
-| --- | ---: | --- | --- |
-| OpenAI | 21 | 2022-11-30 | GPT-6.1 Sol (2026-09-29) |
-| Google | 17 | 2023-12-06 | Gemini 4 Argon (2026-09-30) |
-| Anthropic | 21 | 2023-03-14 | Claude 5.5 Sonnet (2026-09-28) |
+## 모델 릴리스별 벤치마크 유형
 
-현재 스냅숏은 2026년 9월 30일까지의 릴리스를 담고 있다. 릴리스 탐색과 출처 확인은 2026년 10월 4일 기준으로 다시 했고, 그 결과는 [출처·식별 감사 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/data_refresh_2026_10_04.md)에 있다.
+이 페이지 맨 위의 타임라인은 모델, 제공사, 출시일, 벤치마크 구성을 한 그림에 잇는다. 다섯 가지 색은 더 세밀한 분류 체계를 과제 유형으로 간추린 것이다. Agentic, Multimodal Perception, Generative Reasoning, Constraint Satisfaction, Knowledge Retrieval의 다섯 가지다.
 
-벤치마크가 실린 릴리스는 모두 같은 총 가중치를 갖는다. 추적한 릴리스 59개 가운데 55개가 여기에 해당한다. 출시 페이지 하나에 식별된 벤치마크가 열 개 있으면 각각 그 릴리스 가중치의 10분의 1을 받는다. 벤치마크 표가 긴 릴리스가 시계열을 좌우하지 않게 하기 위해서다.
+모델 행은 모두 그려져 있고, 그림이 읽히도록 이름은 일부만 표시했다. 모든 행에 이름을 붙인 그림은 [전체 라벨 버전](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_evolution_detail.png)에 있다. 색은 각 출시 페이지에 실린 과제를 요약한 것으로 읽으면 된다. 이 유형들은 아직 잠정적인 분류에 기대고 있으며, 'Agentic'은 아래에서 따로 살펴보는 도구·환경 상호작용 지표보다 범위가 넓다. 시각적 표현 방식과 분류가 없는 경우의 처리는 [릴리스 그림 방법 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_evolution/README.md)에 설명되어 있다.
 
-주요 파일은 다음과 같다.
+## 시간에 따른 벤치마크 유형
 
-| 파일 | 내용 |
-| --- | --- |
-| [models.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/models.csv) | 모델 릴리스, 날짜, 출처 URL, 벤치마크 언급 원문 |
-| [benchmarks.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmarks.csv) | 표준 벤치마크 카탈로그와 출처 |
-| [benchmark_aliases.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_aliases.csv) | 별칭과 벤치마크의 일대일 대응 |
-| [benchmark_facets.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_facets.csv) | 다중 라벨 분류와 검토 상태 |
-| [benchmark_distinctness.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_distinctness.csv) | 벤치마크 계열과 구분 여부에 대한 판단 |
+최근 180일 구간으로 보면 릴리스 포트폴리오 전반의 변화가 드러난다. 벤치마크가 실린 모델 행은 각각 가중치 1을 갖고, 이를 기록된 벤치마크 언급에 나눈다. 같은 벤치마크가 다시 등장하면 그만큼 다시 반영되므로, 이 그림은 새로 만들어진 벤치마크의 수가 아니라 보고의 구성을 보여 준다. 구간마다 분류가 있는 가중치를 100%로 정규화하고, 분류된 관측이 없는 구간은 빈 채로 둔다.
 
-## 출시 페이지는 시험에서 업무 시뮬레이션으로 옮겨 가고 있다
+![2023년부터 2026년 9월까지 다섯 가지 벤치마크 과제 유형의 최근 180일 비중을 쌓아 그린 영역 그래프. Agentic의 비중은 2024년 말에 처음 나타나 2026년 9월에는 약 70%까지 커진다](./charts/benchmark_growth.png)
 
-정적인 문답은 여전히 자주 등장하지만, 2024년 이후 구성이 크게 바뀌었다. 현재 분류 체계로 보면 2026년(연초 이후) 가중 포트폴리오의 69.9%가 업무 시뮬레이션 성격을 띤다. 2023년에는 12.0%였다.
+이 곡선은 분류 체계로 본 서술적인 그림일 뿐이다. 초기에는 릴리스가 드물고 제공사 구성도 달라서 곡선이 그 영향을 받고, 분류의 빈틈과 잠정 라벨은 범주에 영향을 준다. [과제 유형·분야별 패널](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_growth_by_all_category.png)과 [다중 분류 그림](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_facet_trends.png)이 세부를 보완하고, 구간, 분모, 결측 처리 규칙은 [추세 방법 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_taxonomy_trends/README.md)에 있다.
 
-![2023년부터 2026년까지 출시 연도별로 정적 시험형, 업무 시뮬레이션, 특수 분야 벤치마크의 가중 비중을 그린 꺾은선 그래프](./charts/static_to_work_simulation_trend.png)
+이 두 그림은 함께 발표된 변형 모델을 포함해 이름이 붙은 모델 행을 그대로 쓴다. 아래의 공유 분석과 생애 주기 분석은 서로 다른 발표를 한 번씩만 세고, 상호작용 분석은 두 단위를 비교한다.
 
-| 출시 연도 | 정적 평가 | 업무 시뮬레이션 | 특수 맥락 | 릴리스 |
-| ---: | ---: | ---: | ---: | ---: |
-| 2023 | 82.4% | 12.0% | 53.7% | 3 |
-| 2024 | 70.7% | 18.0% | 28.0% | 8 |
-| 2025 | 54.4% | 39.1% | 48.7% | 14 |
-| 2026 YTD | 12.2% | 69.9% | 37.1% | 30 |
+## 소수의 공유 벤치마크가 보고의 대부분을 차지한다
 
-2026년 추정치는 분류 검토가 어디까지 되었는지에 민감하다. 활성 라벨 전체로는 69.9%, 분모를 고정한 하한으로는 20.9%, 신뢰도 높은 라벨이 빠짐없이 붙은 언급만 보면 51.2%다. 민감도 표 전체는 [static_work_sensitivity.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/static_work_sensitivity.csv)에 있다.
+관측된 벤치마크의 25.9%가 둘 이상의 제공사에 등장하고, 이들이 벤치마크–발표 관측의 62.1%를 차지한다. 둘 이상의 제공사에 등장하는 벤치마크는 74개이고, 그중 38개는 세 곳 모두에 등장한다.
 
-업무 시뮬레이션 신호의 상당 부분은 SWE-bench Verified, OSWorld-Verified, SWE-bench Pro, HumanEval, 그리고 TAU 계열에서 나온다.
+![관측된 표본을 보고한 제공사 수로 나눈 누적 막대그래프. 벤치마크 286개 가운데 74.1%는 한 제공사에만 등장하지만, 둘 또는 세 제공사가 공유하는 벤치마크가 관측 745건의 62.1%, 발표마다 같은 가중치를 준 경우의 63.3%를 차지한다](./charts/benchmark_shared_core.png)
 
-## 새로 공개된 벤치마크는 연구소 사이에 빠르게 퍼진다
+벤치마크가 실린 발표마다 가중치 1을 주고 그 발표의 표준 벤치마크 집합에 나누면, 공유 벤치마크는 평균 포트폴리오의 63.3%를 차지한다. 발표마다 같은 가중치를 주어도 공유 벤치마크가 과반이라는 점은 그대로다. 따라서 긴 벤치마크 표나 함께 발표된 변형 모델만으로는 이 결과를 설명할 수 없다.
 
-최근 벤치마크 몇 개는 이 데이터셋에서 처음 관측된 지 며칠 만에 다른 제공사의 출시 페이지에 등장했다.
+이 결과는 카탈로그 항목을 단위로 한다. 명시된 버전은 따로 세고, 과거의 일부 행은 여러 변형을 하나로 묶고 있다. 벤치마크 계열 단위의 집중이나, 점수 산정 방식이 서로 비교 가능하다는 점을 보여 주는 것은 아니다. [개수와 두 가지 가중 방식](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/sharing_summary.csv)은 저장소에 있다.
 
-| 벤치마크 | 처음 쓴 곳 | 다음으로 쓴 곳 | 간격 |
-| --- | --- | --- | ---: |
-| MMMLU | Anthropic | OpenAI | 2일 |
-| Terminal-Bench 2.0 | Google | Anthropic | 6일 |
-| OfficeQA Pro | Anthropic | OpenAI | 7일 |
-| Finance Agent v2 | Google | Anthropic | 9일 |
-| GDPval-AA v2 | Anthropic | OpenAI | 9일 |
-| Terminal-Bench 2.1 | Google | Anthropic | 9일 |
+## 벤치마크마다 보고 이력이 있다
 
-이 날짜는 여기서 다루는 출시 페이지에 채택된 시점을 잰 것이다.
-
-## 벤치마크마다 관측된 보고 생애 주기가 있다
-
-출시 페이지에서 관측된 벤치마크 284개 가운데 167개는 발표 한 건에만 나오고, 117개는 여러 발표에 걸쳐 다시 나온다. 둘 이상의 제공사에 나오는 것은 74개다. 생애 주기 분석은 모델 행 59개를 서로 다른 발표 55건으로 센다. 그래서 여러 모델이 출시 페이지 하나를 함께 쓴다는 이유만으로 반복 사용으로 잡히지는 않는다.
+벤치마크 169개는 발표 한 건에만 등장하고, 그중 136개는 2026년에 처음 표본에 들어왔다. 최근에 들어온 벤치마크는 다시 등장할 시간이 적었으므로, 한 번만 등장했다고 해서 그 생애가 끝난 것은 아니다. 생애 주기 분석은 카탈로그의 모든 항목에 대해 처음과 마지막 관측, 재등장, 제공사 간 확산, 보고 공백을 따라간다.
 
 ![2023년부터 2026년까지 벤치마크 15개를 골라, 각 벤치마크를 언급한 발표를 제공사별로 표시하고 처음부터 마지막 관측까지를 회색 선으로 이은 타임라인](./charts/benchmark_lifecycle.png)
 
-| 벤치마크 | 처음 관측 | 마지막 관측 | 발표 | 제공사 |
-| --- | --- | --- | ---: | ---: |
-| GSM8K | 2023-07-11 | 2024-06-21 | 4 | 2 |
-| HumanEval | 2023-07-11 | 2024-10-23 | 7 | 3 |
-| SWE-bench Verified | 2024-10-23 | 2026-04-16 | 18 | 3 |
-| Terminal-Bench 3.0 | 2026-08-13 | 2026-08-13 | 1 | 1 |
-| Terminal-Bench 4.0 | 2026-09-01 | 2026-09-30 | 6 | 3 |
-| Terminal-Bench Science 0.1 | 2026-09-01 | 2026-09-30 | 5 | 3 |
+점은 실제 발표일이고, 회색 선은 처음과 마지막 관측을 이으며 그 사이에 공백이 있을 수 있다. 마지막 관측이 퇴역, 포화, 교체를 뜻하지는 않는다. [전체 카탈로그 보고서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md)는 항목 288개를 다루며, 기준일까지 관측되지 않은 2개도 포함한다. [제공사별 이력](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/provider_lifecycles.csv)은 벤치마크가 기록되지 않은 페이지까지 포함해 이후의 출시를 세므로, 공백을 각 제공사의 출시 주기에 견주어 읽을 수 있다.
 
-처음과 마지막 등장은 관측된 보고 기간의 양 끝일 뿐이다. 마지막 언급이 곧 퇴역을 뜻하지는 않고, 버전별 패턴이 곧 교체를 뜻하지도 않는다.
+### 보고는 얼마나 자주 다른 제공사로 퍼지는가?
 
-[전체 생애 주기 보고서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md)는 카탈로그 항목 286개를 모두 다루며, 기준일까지 한 번도 관측되지 않은 두 항목도 포함한다. [벤치마크별 지표](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/benchmark_lifecycles.csv)와 [제공사별 표](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/provider_lifecycles.csv)에는 각 연구소가 벤치마크를 처음 쓴 뒤 이어진 출시에서 얼마나 자주 다시 보고했는지도 기록되어 있다.
+이 표에는 한 제공사에만 머문 벤치마크도 들어 있으며, 추적 기간 전체가 관측 기간 안에 들어오는 벤치마크만 포함한다.
 
-## Gemini는 긴 컨텍스트를 출시 서사의 일부로 만들었다
+| 추적 기간 | 대상 벤치마크 | 기간 안에 두 번째 제공사에서 관측 | 비율 |
+| --- | ---: | ---: | ---: |
+| 30일 | 209 | 26 | 12.4% |
+| 90일 | 160 | 50 | 31.2% |
+| 180일 | 113 | 45 | 39.8% |
 
-2024년 Google의 가중 벤치마크 포트폴리오에서 긴 컨텍스트 평가는 39.3%를 차지했다. 같은 기준으로 OpenAI는 2.4%, Anthropic은 5.8%였다. 이 시기 Google의 수치를 끌어올린 것은 주로 Needle In A Haystack이었다.
+행마다 대상 집단이 다르다. 시간은 벤치마크가 공개된 때가 아니라 이 데이터셋에 처음 언급된 때부터 재며, 대상 기간 안에 다른 제공사의 출시가 반드시 있는 것은 아니다. 추적은 2026-09-30에 끝난다. 이 값들은 보고를 기술하는 비율이지, 생존 곡선이나 업계 전체의 채택 확률이 아니다. [기간 정의와 근거](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/README.md#diffusion-with-complete-calendar-follow-up)는 개요 방법 문서에 있다.
 
-![2024년 제공사별 긴 컨텍스트 벤치마크 비중을 그린 막대그래프: OpenAI 2.4%, Google 39.3%, Anthropic 5.8%](./charts/gemini_long_context_case.png)
+## 분류에 얼마나 좌우되는가?
 
-| 제공사 | 넓은 기준 비중 | 주 분류만 본 비중 | 2024년 주요 요인 | 릴리스 |
-| --- | ---: | ---: | --- | ---: |
-| OpenAI | 2.4% | 2.4% | EgoSchema | 3 |
-| Google | 39.3% | 35.7% | Needle In A Haystack | 2 |
-| Anthropic | 5.8% | 2.1% | SWE-bench Verified | 3 |
+이 프로젝트는 도구나 환경과의 명시적인 상호작용도 따로 잰다. 이 좁은 지표는 도구, 환경, 브라우저, 터미널·코드베이스, 컴퓨터 조작 가운데 하나의 상호작용 라벨이 있어야 한다. 정적인 코드 생성, 단위 테스트 채점, 계획 수립만으로는 해당하지 않는다.
 
-## OpenAI 관련 벤치마크가 공통 기준점이 되었다
+2026년에 벤치마크가 실린 발표마다 같은 가중치를 주면, 포트폴리오 가중치의 64.0%에 도구·환경 상호작용 라벨이 붙어 있다. 신뢰도 0.70 이상인 라벨만 남기면 17.2%가 된다. 이 조건에서는 포트폴리오 가중치의 36.6%만 상호작용 축에 라벨이 하나라도 있고, 승인된 상호작용 라벨의 커버리지는 0.0%다.
 
-OpenAI가 만들었거나 OpenAI 소속 저자가 참여한 벤치마크는 세 연구소의 출시 페이지 모두에 등장한다. Google의 릴리스 정규화 비중은 2023–24년 6.1%에서 2025–26년 13.3%로 올랐다. Anthropic의 비중은 25.0%에서 17.7%로 내렸고, Anthropic과 Google을 합친 비중은 16.9%에서 15.6%로 내렸다.
+![2023년부터 2026년까지 발표 연도별 꺾은선 그래프 두 개. 왼쪽: 도구·환경 상호작용 라벨이 붙은 포트폴리오 가중치의 비중은 활성 라벨 전체로는 2026년에 64.0%까지 오르지만, 신뢰도 0.70 이상 라벨만 쓰면 17.2%로 내려간다. 오른쪽: 신뢰도 0.70 이상 라벨의 커버리지는 2025년 약 99%에서 2026년 36.6%로 떨어지고, 승인 라벨의 커버리지는 0이 된다](./charts/interaction_taxonomy_sensitivity.png)
 
-| 포트폴리오 | 2023–24 원값 | 2023–24 정규화 | 2025–26 원값 | 2025–26 정규화 |
-| --- | ---: | ---: | ---: | ---: |
-| Anthropic + Google | 14.5% | 16.9% | 14.6% | 15.6% |
-| Anthropic | 19.0% | 25.0% | 15.8% | 17.7% |
-| Google | 8.8% | 6.1% | 13.2% | 13.3% |
+활성 라벨 전체와 신뢰도로 거른 결과의 차이 때문에, 라벨의 품질 자체가 결과의 일부가 된다. 신뢰도 0.70 이상이라는 조건은 민감도를 보기 위한 필터이지 검토가 끝났다는 뜻이 아니다. 라벨이 없는 언급도 분모에는 그대로 남는다. 승인 라벨의 커버리지가 0이라는 것은 검토를 거친 추정 근거가 없다는 뜻이지, 상호작용이 없다는 증거가 아니다.
 
-## 같은 기록을 보는 다른 방법
+| 연도 | 발표 | 활성 라벨 전체 | 신뢰도 ≥0.70 라벨 | ≥0.70 커버리지 | 승인 라벨 커버리지 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| 2023 | 3 | 0.0% | 0.0% | 98.2% | 20.2% |
+| 2024 | 8 | 9.7% | 6.6% | 99.1% | 13.6% |
+| 2025 | 14 | 35.9% | 32.4% | 99.2% | 0.0% |
+| 2026 YTD | 26 | 64.0% | 17.2% | 36.6% | 0.0% |
 
-이동 구간으로 보면 대표 벤치마크 범주의 장기적인 변화가 더 잘 드러난다.
+라벨이 붙은 비중과 커버리지는 모두 발표 가중치 전체를 분모로 쓴다. 커버리지는 정적 과제를 포함해 상호작용 라벨이 하나라도 남아 있는 경우를 뜻한다. 단위를 발표에서 모델 행으로 바꾸면 2026년 활성 라벨 전체 추정치는 64.0%에서 64.4%가 된다. [제공사별 비교](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/provider_interaction_trends.csv)와 [실제로 남은 라벨](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/interaction_classification.csv)로 더 자세히 볼 수 있다. 예전의 [넓은 소프트웨어·도구 과제 지표](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/README.md)는 정적 코딩 테스트도 포함했으며, 탐색적인 비교로 남아 있다.
 
-![벤치마크 범주의 이동 구간 추세](./charts/benchmark_growth.png)
+## 표본과 방법
 
-출시 페이지 하나에 실리는 벤치마크 언급 수는 제공사와 릴리스에 따라 크게 다르다.
+| 제공사 | 모델 행 | 발표 | 벤치마크 있음 | 첫 추적 | 최근 추적 |
+| --- | ---: | ---: | ---: | --- | --- |
+| Anthropic | 21 | 21 | 19 | 2023-03-14 | 2026-09-28 |
+| Google | 17 | 14 | 14 | 2023-12-06 | 2026-09-30 |
+| OpenAI | 21 | 20 | 18 | 2022-11-30 | 2026-09-29 |
 
-![모델 릴리스별 벤치마크 수](./charts/benchmark_count_per_release.png)
+이 목록에는 선별한 범용 프런티어 릴리스와 사이버 특화 변형이 들어 있고, 제한적으로 공개된 출시도 포함한다. 모든 모델을 빠짐없이 담은 이력은 아니다.
 
-저장소에는 다중 분류 체계 추세와 남은 검토 분량을 비롯한 [차트가 더 있다](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models#other-charts).
+벤치마크가 실린 발표는 51건이고, 표준 벤치마크–발표 관측은 745건이다. 발표의 단위는 제공사, 출시일, 정규화한 출처 URL의 조합이며, 별칭은 정확히 일치하는 대응표로 식별한다. [연도별 목록](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/annual_inventory.csv)은 연도마다 표본이 고르지 않다는 점을 보여 주고, [개요 방법 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/README.md)는 분모를 정의하고 원문 라벨, 모델 행, 발표 관측 사이의 수치를 맞춘다.
 
-## 방법
+벤치마크 묶음과 그 구성 요소가 함께 등장할 수 있으므로, 이 개수는 서로 독립적인 시험의 수가 아니다. 과거의 일부 라벨은 여러 버전을 하나로 묶고 있고, 현재의 출시 페이지는 출시 이후 수정되었을 수 있다. 첫 관측은 이 표본 안에서의 이야기이며, 벤치마크가 언제 공개적으로 쓰이기 시작했는지를 보관 자료로 입증한 것은 아니다.
 
-| 단계 | 규칙 |
+분류 표에는 라벨이 4,052개 있다. 36개는 승인되었고, 3,956개는 검토가 필요하며, 60개는 이전 방식의 초기 라벨이다. 항목 식별에 대한 승인과 분류에 대한 승인은 별개다. [서문 감사 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/readme_data_audit_2026_10_04.md)에는 MTOB의 과제 정의와 빠져 있던 언급을 비롯한 정정 사항, 그리고 아직 풀리지 않은 MRCR 계보 문제가 기록되어 있다. [릴리스 감사 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/data_refresh_2026_10_04.md)에는 출처 탐색 범위가 기록되어 있다.
+
+## 근거 살펴보기
+
+| 질문 | 여기서 시작 |
 | --- | --- |
-| 추출 | 공개된 출시 페이지마다 표시된 벤치마크 이름과 변형을 기록한다 |
-| 식별 | 정확한 표준 이름이나 검토를 거친 별칭과 맞춘다 |
-| 가중 | 릴리스마다 총 가중치 1을 주고, 식별된 벤치마크에 나눈다 |
-| 분류 | 상호작용 방식, 과제 메커니즘, 측정하려는 구성 개념, 맥락에 걸쳐 여러 분류를 붙인다 |
-| 검토 | 분류마다 신뢰도, 출처, 검토 상태를 함께 저장한다 |
+| 출시 페이지에 어떤 이름이 실렸나? | [모델 목록과 출처 URL](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/models.csv) |
+| 벤치마크 이름이 무엇을 가리키나? | [카탈로그](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmarks.csv), [별칭](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_aliases.csv), [구분 판단](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_distinctness.csv) |
+| 어떤 벤치마크가 어디에 등장했나? | [전체 생애 주기 보고서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md)와 [출처가 연결된 관측](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/launch_mentions.csv) |
+| 릴리스마다 벤치마크가 몇 개 보고되었나? | [벤치마크 수 그림](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_count_per_release.png) |
+| 긴 컨텍스트, 저자·소속, 제공사 간 유사성은? | [보조 분석](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/README.md#exploratory-and-supporting-analyses) |
+| 어떤 분류에 손이 더 가야 하나? | [분류 데이터](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_facets.csv), [검토 우선순위](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/review_leverage_top.csv), [검토 지침](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/facet_review_guidelines.md) |
 
-차트는 다중 라벨 분류 체계에서 뽑은 간결한 대표 분류를 쓴다. 분류 표에는 현재 4,042행이 있다. 29행은 승인되었고, 3,953행은 검토를 기다리며, 60행은 이전 방식의 행이다. 이 가운데 2,147행은 신뢰도가 0.70 미만이다. 검토 우선순위는 불확실성과, 그 벤치마크가 영향을 주는 출시 페이지 언급 수로 정한다.
+앞으로의 진전은 영향이 큰 잠정 라벨을 검토하고, 벤치마크 계열과 구현 계보를 문서화하고, 각 언급이 직접적인 결과인지, 비교인지, 구성 요소인지, 인용인지를 기록하는 데 달려 있다. [현재 종합 문서](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/SYNTHESIS.md)는 뒷받침된 결과와 이런 열린 연구 질문을 구분한다.
 
-## 한계
-
-- 출시 페이지가 얼마나 자세한지는 제공사와 릴리스마다 다르므로, 이 데이터셋에는 각 회사가 무엇을 공개하기로 했는지도 반영되어 있다.
-- 비교는 벤치마크의 등장 여부와 릴리스 단위 가중치를 쓴다. 점수 척도와 평가 방식은 출처마다 다르다.
-- 분류 검토는 아직 진행 중이며, 신뢰도 격차는 2026년 릴리스에서 가장 크다.
-- 출시 페이지가 수정되면 최초 출시일 이후에 공개 기록이 달라질 수 있다.
-
-분석을 재현하는 방법과 새 릴리스를 추가하는 방법은 [저장소 README](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models#readme)에 있다.
+분석을 재현하고 데이터를 확장하는 방법은 [저장소 README](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models#reproduce-and-extend)에 있다.
