@@ -2,16 +2,16 @@
 title: "The Evolution of Benchmarks in Frontier Models"
 description: "A release-page dataset of the benchmarks that OpenAI, Google, and Anthropic have used to introduce their frontier AI models."
 status: active
-updated: 2026-08-13
+updated: 2026-10-04
 repo: isingmodel/evolution_of_benchmarks_in_frontier_models
 cover:
   src: ./charts/benchmark_evolution.png
   alt: "Timeline of model releases from OpenAI, Google, and Anthropic, each drawn as a pie chart of the task modes of its benchmarks"
 facts:
   - { label: "Providers", value: "OpenAI, Google, Anthropic" }
-  - { label: "Releases tracked", value: "47" }
-  - { label: "Benchmark mentions", value: "582" }
-  - { label: "Catalog entries", value: "207" }
+  - { label: "Releases tracked", value: "59" }
+  - { label: "Benchmark mentions", value: "791" }
+  - { label: "Catalog entries", value: "286" }
   - { label: "License", value: "Apache-2.0" }
 ---
 This project tracks benchmark and evaluation names published on the launch pages for frontier models from OpenAI, Google, and Anthropic. It follows how those benchmark portfolios have changed over time: from academic tests and static question sets toward coding environments, tool use, computer interaction, and other work-like tasks.
@@ -22,11 +22,13 @@ The unit of evidence is a benchmark mention on a public model-release page. A be
 
 | Provider | Releases | First release | Latest release |
 | --- | ---: | --- | --- |
-| OpenAI | 17 | 2022-11-30 | GPT-5.6-Cyber (2026-08-10) |
-| Google | 12 | 2023-12-06 | Gemini 3.7 Flash (2026-08-13) |
-| Anthropic | 18 | 2023-03-14 | Claude 5 Opus (2026-07-24) |
+| OpenAI | 21 | 2022-11-30 | GPT-6.1 Sol (2026-09-29) |
+| Google | 17 | 2023-12-06 | Gemini 4 Argon (2026-09-30) |
+| Anthropic | 21 | 2023-03-14 | Claude 5.5 Sonnet (2026-09-28) |
 
-Every model-release row carries the same total weight. If a launch page lists ten resolved benchmarks, each receives one tenth of that release's weight. This keeps releases with long benchmark tables from dominating the time series.
+The current snapshot covers releases through September 30, 2026. Release discovery and source checks were refreshed through October 4, 2026, and the results are in the [source and identity audit](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/data_refresh_2026_10_04.md).
+
+Every release that lists benchmarks carries the same total weight; 55 of the 59 tracked releases do. If a launch page lists ten resolved benchmarks, each receives one tenth of that release's weight. This keeps releases with long benchmark tables from dominating the time series.
 
 The main files are:
 
@@ -40,7 +42,7 @@ The main files are:
 
 ## Release pages are moving from exams toward work simulations
 
-Static question answering still appears frequently, but the mix changed sharply after 2024. The active taxonomy assigns 73.4% of the weighted 2026 YTD portfolio to work-simulation characteristics, up from 12.0% in 2023.
+Static question answering still appears frequently, but the mix changed sharply after 2024. The active taxonomy assigns 69.9% of the weighted 2026 YTD portfolio to work-simulation characteristics, up from 12.0% in 2023.
 
 ![Line chart of the weighted share of static exam-style, work-simulation, and specialized-domain benchmarks by release year, 2023 to 2026](./charts/static_to_work_simulation_trend.png)
 
@@ -49,9 +51,9 @@ Static question answering still appears frequently, but the mix changed sharply 
 | 2023 | 82.4% | 12.0% | 53.7% | 3 |
 | 2024 | 70.7% | 18.0% | 28.0% | 8 |
 | 2025 | 54.4% | 39.1% | 48.7% | 14 |
-| 2026 YTD | 16.1% | 73.4% | 42.3% | 18 |
+| 2026 YTD | 12.2% | 69.9% | 37.1% | 30 |
 
-The 2026 estimate is sensitive to taxonomy review coverage. It is 73.4% across all active labels, 33.8% under a fixed-denominator lower bound, and 58.0% among mentions with complete high-confidence coverage. The full sensitivity tables are in [static_work_sensitivity.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/static_work_sensitivity.csv).
+The 2026 estimate is sensitive to taxonomy review coverage. It is 69.9% across all active labels, 20.9% under a fixed-denominator lower bound, and 51.2% among mentions with complete high-confidence coverage. The full sensitivity tables are in [static_work_sensitivity.csv](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/static_work_sensitivity.csv).
 
 SWE-bench Verified, OSWorld-Verified, SWE-bench Pro, HumanEval, and the TAU family account for much of the work-simulation signal.
 
@@ -70,6 +72,25 @@ Several recent benchmarks appeared on another provider's release page within day
 
 These dates measure adoption on the release pages covered here.
 
+## Each benchmark has an observed reporting life cycle
+
+Of the 284 benchmarks observed on a release page, 167 appear on one announcement and 117 recur across announcements; 74 appear across multiple providers. The lifecycle analysis counts the 59 model rows as 55 distinct announcements, so a shared launch page cannot create repeat use by itself.
+
+![Timeline of 15 selected benchmarks from 2023 to 2026, marking each announcement that mentions a benchmark by provider, with a grey span from its first to its last observed mention](./charts/benchmark_lifecycle.png)
+
+| Benchmark | First observed | Last observed | Announcements | Providers |
+| --- | --- | --- | ---: | ---: |
+| GSM8K | 2023-07-11 | 2024-06-21 | 4 | 2 |
+| HumanEval | 2023-07-11 | 2024-10-23 | 7 | 3 |
+| SWE-bench Verified | 2024-10-23 | 2026-04-16 | 18 | 3 |
+| Terminal-Bench 3.0 | 2026-08-13 | 2026-08-13 | 1 | 1 |
+| Terminal-Bench 4.0 | 2026-09-01 | 2026-09-30 | 6 | 3 |
+| Terminal-Bench Science 0.1 | 2026-09-01 | 2026-09-30 | 5 | 3 |
+
+First and last appearance bound an observed reporting span. A last mention does not establish retirement, and version-specific patterns do not establish replacement.
+
+The [complete lifecycle report](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md) covers all 286 catalog entries, including two with no observed mention by the cutoff. The [per-benchmark measures](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/benchmark_lifecycles.csv) and [per-provider tables](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/provider_lifecycles.csv) also record how often each lab kept reporting a benchmark in the launches that followed its first use.
+
 ## Gemini made long context part of the launch narrative
 
 Long-context evaluations formed 39.3% of Google's weighted benchmark portfolio in 2024. The comparable shares were 2.4% for OpenAI and 5.8% for Anthropic. Needle In A Haystack was Google's main driver in this period.
@@ -84,13 +105,13 @@ Long-context evaluations formed 39.3% of Google's weighted benchmark portfolio i
 
 ## OpenAI-linked benchmarks have become shared reference points
 
-On Google's release pages, the release-normalized share of OpenAI-authored or OpenAI-affiliated benchmarks rose from 6.1% to 20.2%. The combined Anthropic–Google share rose from 16.9% to 20.4%, while Anthropic stayed close to its earlier level.
+OpenAI-authored or OpenAI-affiliated benchmarks appear across all three labs' release pages. Google's release-normalized share rose from 6.1% to 13.3% between 2023–24 and 2025–26. Anthropic's share fell from 25.0% to 17.7%, and the combined Anthropic–Google share fell from 16.9% to 15.6%.
 
 | Portfolio | 2023–24 raw | 2023–24 normalized | 2025–26 raw | 2025–26 normalized |
 | --- | ---: | ---: | ---: | ---: |
-| Anthropic + Google | 14.5% | 16.9% | 19.6% | 20.4% |
-| Anthropic | 19.0% | 25.0% | 18.8% | 20.6% |
-| Google | 8.8% | 6.1% | 21.0% | 20.2% |
+| Anthropic + Google | 14.5% | 16.9% | 14.6% | 15.6% |
+| Anthropic | 19.0% | 25.0% | 15.8% | 17.7% |
+| Google | 8.8% | 6.1% | 13.2% | 13.3% |
 
 ## More views of the same history
 
@@ -114,7 +135,7 @@ The repository has [more charts](https://github.com/isingmodel/evolution_of_benc
 | Classification | Assign multiple facets across interaction pattern, task mechanism, construct claim, and context |
 | Review | Store confidence, provenance, and review status with each facet assignment |
 
-The charts use a concise headline projection built from the multi-label taxonomy. The facet table currently contains 3,410 rows: 29 accepted, 3,339 awaiting review, and 42 legacy rows. Of these, 1,533 have confidence below 0.70. Review priority is driven by both uncertainty and the number of release-page mentions affected by a benchmark.
+The charts use a concise headline projection built from the multi-label taxonomy. The facet table currently contains 4,042 rows: 29 accepted, 3,953 awaiting review, and 60 legacy rows. Of these, 2,147 have confidence below 0.70. Review priority is driven by both uncertainty and the number of release-page mentions affected by a benchmark.
 
 ## Limitations
 
