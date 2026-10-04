@@ -1,0 +1,100 @@
+---
+import LangSwitch from './LangSwitch.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { site } from '../config';
+import { localePath, ui, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  availableLangs: Lang[];
+}
+
+const { lang, path, availableLangs } = Astro.props;
+const t = ui[lang];
+const tabs = [
+  { label: t.posts, path: '/', active: path === '/' || path.startsWith('/posts/') },
+  { label: t.about, path: '/about/', active: path === '/about/' },
+];
+---
+
+<header class="container">
+  <a class="brand" href={localePath(lang)}>
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <rect class="up" x="0" y="0" width="4" height="4" rx="1"></rect>
+      <rect class="up" x="6" y="0" width="4" height="4" rx="1"></rect>
+      <rect x="12" y="0" width="4" height="4" rx="1"></rect>
+      <rect x="0" y="6" width="4" height="4" rx="1"></rect>
+      <rect class="up" x="6" y="6" width="4" height="4" rx="1"></rect>
+      <rect class="up" x="12" y="6" width="4" height="4" rx="1"></rect>
+      <rect x="0" y="12" width="4" height="4" rx="1"></rect>
+      <rect x="6" y="12" width="4" height="4" rx="1"></rect>
+      <rect class="up" x="12" y="12" width="4" height="4" rx="1"></rect>
+    </svg>
+    {site.title}
+  </a>
+  <nav>
+    {
+      tabs.map((tab) => (
+        <a class="tab" href={localePath(lang, tab.path)} aria-current={tab.active ? 'page' : undefined}>
+          {tab.label}
+        </a>
+      ))
+    }
+    <LangSwitch lang={lang} path={path} availableLangs={availableLangs} />
+    <ThemeToggle lang={lang} />
+  </nav>
+</header>
+
+<style>
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding-block: 1.75rem;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+  }
+
+  .brand rect {
+    fill: var(--line);
+  }
+
+  .brand rect.up {
+    fill: var(--accent);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
+  .tab {
+    padding-block: 0.15rem;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  .tab:hover {
+    color: var(--text);
+  }
+
+  .tab[aria-current='page'] {
+    border-bottom-color: var(--accent);
+    color: var(--text);
+    font-weight: 600;
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+// A live 2D Ising model: the site's namesake, simulated in the visitor's browser.
+---
+
+<figure class="lattice">
+  <canvas aria-hidden="true"></canvas>
+  <figcaption>2D Ising model · T ≈ T<sub>c</sub></figcaption>
+</figure>
+
+<script>
+  const CELL = 8; // target size of one spin, in CSS pixels
+  const T = 2.27; // the critical temperature is ≈ 2.269 (J = k_B = 1)
+  const FRAME_MS = 90;
+
+  const canvas = document.querySelector<HTMLCanvasElement>('.lattice canvas');
+  const ctx = canvas?.getContext('2d');
+
+  if (canvas && ctx) {
+    let cols = 0;
+    let rows = 0;
+    let spins = new Int8Array(0);
+    let width = 0;
+    let height = 0;
+    let colors = { up: '', down: '' };
+
+    // Metropolis: flip one random spin if that lowers the energy, or with
+    // probability exp(-dE / T) if it raises it. Boundaries wrap around.
+    const step = (flips: number) => {
+      for (let n = 0; n < flips; n++) {
+        const x = (Math.random() * cols) | 0;
+        const y = (Math.random() * rows) | 0;
+        const i = y * cols + x;
+        const neighbours =
+          spins[y * cols + ((x + 1) % cols)] +
+          spins[y * cols + ((x + cols - 1) % cols)] +
+          spins[((y + 1) % rows) * cols + x] +
+          spins[((y + rows - 1) % rows) * cols + x];
+        const dE = 2 * spins[i] * neighbours;
+        if (dE <= 0 || Math.random() < Math.exp(-dE / T)) spins[i] = -spins[i];
+      }
+    };
+
+    const draw = () => {
+      const w = width / cols;
+      const h = height / rows;
+      ctx.clearRect(0, 0, width, height);
+      for (const [spin, color] of [
+        [-1, colors.down],
+        [1, colors.up],
+      ] as const) {
+        ctx.fillStyle = color;
+        for (let i = 0; i < spins.length; i++) {
+          if (spins[i] === spin) ctx.fillRect((i % cols) * w, ((i / cols) | 0) * h, w - 1.5, h - 1.5);
+        }
+      }
+    };
+
+    const readColors = () => {
+      const style = getComputedStyle(document.documentElement);
+      colors = { up: style.getPropertyValue('--accent'), down: style.getPropertyValue('--line') };
+    };
+
+    const resize = () => {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      width = rect.width;
+      height = rect.height;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const newCols = Math.max(1, Math.round(width / CELL));
+      const newRows = Math.max(1, Math.round(height / CELL));
+      if (newCols !== cols || newRows !== rows) {
+        cols = newCols;
+        rows = newRows;
+        spins = Int8Array.from({ length: cols * rows }, () => (Math.random() < 0.5 ? 1 : -1));
+        step(cols * rows * 80); // let domains form before the first frame
+      }
+      draw();
+    };
+
+    readColors();
+    resize();
+    new ResizeObserver(resize).observe(canvas);
+    document.addEventListener('themechange', () => {
+      readColors();
+      draw();
+    });
+
+    let onScreen = true;
+    new IntersectionObserver(([entry]) => (onScreen = entry.isIntersecting)).observe(canvas);
+
+    // Visitors who ask for reduced motion get a single still frame.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let last = 0;
+      const tick = (now: number) => {
+        if (onScreen && now - last >= FRAME_MS) {
+          last = now;
+          step((cols * rows) / 4);
+          draw();
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+  }
+</script>
+
+<style>
+  .lattice {
+    margin: 0 0 2rem;
+  }
+
+  canvas {
+    display: block;
+    width: 100%;
+    height: 7rem;
+  }
+
+  figcaption {
+    margin-top: 0.4rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-align: right;
+  }
+</style>

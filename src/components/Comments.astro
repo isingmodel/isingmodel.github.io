@@ -1,0 +1,77 @@
+---
+import { site } from '../config';
+import { ui, type Lang } from '../i18n';
+
+interface Props {
+  /** Identifies the discussion thread. Both languages of a post share one. */
+  term: string;
+  lang: Lang;
+}
+
+const { term, lang } = Astro.props;
+const { repo, repoId, category, categoryId } = site.giscus;
+---
+
+{
+  categoryId && (
+    <section
+      class="comments"
+      data-repo={repo}
+      data-repo-id={repoId}
+      data-category={category}
+      data-category-id={categoryId}
+      data-term={term}
+      data-lang={lang}
+    >
+      <h2>{ui[lang].comments}</h2>
+    </section>
+  )
+}
+
+<script>
+  const host = document.querySelector<HTMLElement>('.comments');
+  const theme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+
+  if (host) {
+    // Built here rather than in the markup so giscus starts in the current theme.
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    Object.assign(script.dataset, {
+      repo: host.dataset.repo,
+      repoId: host.dataset.repoId,
+      category: host.dataset.category,
+      categoryId: host.dataset.categoryId,
+      mapping: 'specific',
+      term: host.dataset.term,
+      strict: '1',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'top',
+      theme: theme(),
+      lang: host.dataset.lang,
+      loading: 'lazy',
+    });
+    host.append(script);
+
+    document.addEventListener('themechange', () => {
+      document
+        .querySelector<HTMLIFrameElement>('iframe.giscus-frame')
+        ?.contentWindow?.postMessage({ giscus: { setConfig: { theme: theme() } } }, 'https://giscus.app');
+    });
+  }
+</script>
+
+<style>
+  .comments {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--line);
+  }
+
+  h2 {
+    margin: 0 0 1.5rem;
+    font-size: 1.15rem;
+  }
+</style>

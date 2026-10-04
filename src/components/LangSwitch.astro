@@ -1,0 +1,58 @@
+---
+import { langs, languages, localePath, ui, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  path: string;
+  availableLangs: Lang[];
+}
+
+const { lang, path, availableLangs } = Astro.props;
+// Same page in the other language, or that language's home if there is no translation.
+const href = (l: Lang) => localePath(l, availableLangs.includes(l) ? path : '/');
+---
+
+<div class="lang-switch" role="group" aria-label={ui[lang].language}>
+  {
+    langs.map((l) => (
+      <a
+        href={href(l)}
+        lang={l}
+        hreflang={l}
+        title={languages[l]}
+        aria-current={l === lang ? 'true' : undefined}
+      >
+        {l.toUpperCase()}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .lang-switch {
+    display: inline-flex;
+    padding: 2px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  a {
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+
+  a[aria-current='true'] {
+    background: var(--text);
+    color: var(--bg);
+  }
+</style>

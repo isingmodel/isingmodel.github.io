@@ -1,0 +1,43 @@
+---
+import Base from '../../layouts/Base.astro';
+import Lattice from '../../components/Lattice.astro';
+import PostList from '../../components/PostList.astro';
+import { site } from '../../config';
+import { langPaths, ui, type Lang } from '../../i18n';
+import { getPosts } from '../../lib/posts';
+
+export const getStaticPaths = langPaths;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = ui[lang];
+const posts = await getPosts(lang);
+---
+
+<Base lang={lang} path="/" description={t.description}>
+  <section class="hero">
+    <Lattice />
+    <h1>{site.author}</h1>
+    <p>{t.tagline}</p>
+  </section>
+  <PostList posts={posts} lang={lang} />
+</Base>
+
+<style>
+  .hero {
+    margin-bottom: 2.5rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 0.35rem 0 0;
+    color: var(--muted);
+  }
+</style>

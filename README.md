@@ -1,150 +1,64 @@
-# texture
+# isingmodel.github.io
 
-A configurable jekyll theme for simply beautiful blogs.
+Fred Kim's blog, in Korean and English. Built with [Astro](https://astro.build) and deployed to GitHub Pages.
 
-**Demo**: [thelehhman.com/texture](https://thelehhman.com/texture)
+## Run it locally
 
-![texture theme preview](/screen1.png)
-
-
-## Installation on Github Pages
-
-Add this line to your site's `_config.yml`:
-```yaml
-remote_theme: thelehhman/texture
+```sh
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # production build in dist/
+npm run check    # type check
 ```
 
-**NOTE: If you are forking this repo, remove `base_url: /texture` in the `_config.yml` which is required to load the required website assets**
-## Installation
+## Write a post
 
-Add this line to your Jekyll site's `Gemfile`:
+Every post is a folder with one Markdown file per language:
 
-```ruby
-gem "texture"
+```
+src/content/posts/my-new-post/
+├── ko.md        → /posts/my-new-post/
+├── en.md        → /en/posts/my-new-post/
+└── figure.png   (optional, shared by both)
 ```
 
-And add this line to your Jekyll site's `_config.yml`:
-
-```yaml
-theme: texture
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install texture
-
-## Usage
-
-The "texture" key in _config.yml is used to customize the theme data.
-```yaml
-texture:
-  title: Adam Denisov
-  tagline: Developer. Designer
-  date_format: "%b %-d, %Y"
-
-  social_links:
-    twitter: thelehhman
-    github:  thelehhman
-    linkedIn: in/thelehhman # format: locale/username
-```
-
-**Styling**
-
-Multiple header styles are supported using the "style" property under texture in `_config.yml`.
+Each file starts with:
 
 ```yaml
-texture:
-  style: [yellow|red|black|blue|green|purple]
+---
+title: "Post title"
+description: "One sentence shown in the post list and in search results."
+date: 2026-10-04
+draft: false   # optional; drafts show up in `npm run dev` only
+---
 ```
 
-For example, the blue style looks like this:
+- The folder name is the URL, so keep it in lowercase English.
+- Images sit next to the post and are referenced as `![alt text](./figure.png)`.
+- Math is written as `$inline$` or `$$display$$` and rendered with KaTeX.
+- A post with only one language file appears only in that language. On it, the language switch leads to the other language's home page.
 
-![texture theme blue](/screen2.png)
+## Where things are
 
+| Path | What it holds |
+| --- | --- |
+| `src/config.ts` | Site title, links, analytics ID, comment settings |
+| `src/i18n.ts` | Languages and every piece of interface text |
+| `src/content/about/` | The About page, one file per language |
+| `src/pages/[...lang]/` | Page templates; each one is built once per language |
+| `src/components/` | Header tabs, language switch, theme toggle, lattice, comments |
+| `src/styles/global.css` | Colours, fonts, and post typography |
 
-**Texture Picker**
+Korean is the default language and lives at the root (`/`). English lives under `/en/`.
 
-You can toggle the texture picker to show/experiment various textures on your site using the showPicker variable. Remember to make it `false` for production.
+## Comments
 
-```yaml
-texture:
-  showPicker: [false|true] # show the texture selector(development purposes)
-```
+Comments use [giscus](https://giscus.app), which stores them in this repository's GitHub Discussions. Both languages of a post share one thread. To turn them on:
 
-**Comments (Disqus)**
+1. Enable Discussions in the repository settings.
+2. Install the [giscus app](https://github.com/apps/giscus) on this repository.
+3. Pick the repository and the "Announcements" category on [giscus.app](https://giscus.app), copy the `data-category-id` value it shows, and paste it into `giscus.categoryId` in `src/config.ts`.
 
-Comments on posts can be enabled by specifying your disqus_shortname under texture in `_config.yml`. For example,
-```yaml
-texture:
-  disqus_shortname: games
-```
+## Deploy
 
-**Google Analytics**
-
-It can be enabled by specifying your analytics id under texture in `_config.yml`
-```yaml
-texture:
-  analytics_id: '< YOUR ID >'
-```
-
-**Excerpts**
-
-Excerpts can be enabled by adding the following line to your `_config.yml`
-```yaml
-show_excerpts: true
-```
-
-**Toggle Navbar**
-
-```yaml
-texture:
-  showNav: true
-```
-
-**Navigation**
-
-After setting `showNav` to true navigation can be built by adding the following to your `_config.yml`
-
-```yaml
-texture:
-  navigation:
-    - title: My Work
-      url: "/my-work"
-    - title: Resume
-      url: "/resume"
-```
-
-**Layouts**
-
-- Home
-- Page
-- Post
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/thelehhman/texture. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
-## Development
-
-To set up your environment to develop this theme, run `bundle install`.
-
-Your theme is setup just like a normal Jekyll site! To test your theme, run `bundle exec jekyll serve` and open your browser at `http://localhost:4000`. This starts a Jekyll server using your theme. Add pages, documents, data, etc. like normal to test your theme's contents. As you make modifications to your theme and to your content, your site will regenerate and you should see the changes in the browser after a refresh, just like normal.
-
-When your theme is released, only the files in `_layouts`, `_includes`, `_sass` and `assets` tracked with Git will be bundled.
-To add a custom directory to your theme-gem, please edit the regexp in `texture.gemspec` accordingly.
-
-## Donation
-If this project help you reduce time to develop, you can give me a cup of coffee :) 
-
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/thelehhman)
-
-## License
-
-The theme is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-
-## More Themes
-[plainwhite](https://github.com/thelehhman/plainwhite-jekyll)
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it. This needs **Settings → Pages → Source** set to **GitHub Actions**.

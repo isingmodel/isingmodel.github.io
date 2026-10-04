@@ -1,0 +1,81 @@
+---
+import { formatDate, localePath, ui, type Lang } from '../i18n';
+import type { Post } from '../lib/posts';
+
+interface Props {
+  posts: Post[];
+  lang: Lang;
+}
+
+const { posts, lang } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="empty">{ui[lang].noPosts}</p>
+  ) : (
+    <ul>
+      {posts.map(({ slug, entry }) => (
+        <li>
+          <a href={localePath(lang, `/posts/${slug}/`)}>
+            <span class="title">{entry.data.title}</span>
+            <span class="description">{entry.data.description}</span>
+          </a>
+          <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date, lang)}</time>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+<style>
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 2rem;
+    padding-block: 1.1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  a {
+    display: grid;
+    gap: 0.15rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  a:hover .title {
+    color: var(--accent);
+  }
+
+  .description,
+  time,
+  .empty {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  time {
+    flex: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (max-width: 34rem) {
+    li {
+      flex-direction: column-reverse;
+    }
+  }
+</style>

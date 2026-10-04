@@ -1,0 +1,30 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { langPaths, type Lang } from '../../i18n';
+
+export const getStaticPaths = langPaths;
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const entry = await getEntry('about', lang);
+if (!entry) throw new Error(`Missing src/content/about/${lang}.md`);
+const { Content } = await render(entry);
+---
+
+<Base lang={lang} path="/about/" title={entry.data.title} description={entry.data.description}>
+  <h1>{entry.data.title}</h1>
+  <div class="prose">
+    <Content />
+  </div>
+</Base>
+
+<style>
+  h1 {
+    margin: 1rem 0 1.5rem;
+    font-size: 2rem;
+  }
+</style>

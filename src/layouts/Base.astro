@@ -1,0 +1,94 @@
+---
+import 'pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config';
+import { defaultLang, langs, localePath, type Lang } from '../i18n';
+
+interface Props {
+  lang: Lang;
+  /** Path without the language prefix, e.g. `/about/`. */
+  path: string;
+  description: string;
+  title?: string;
+  /** Languages this page exists in. Defaults to all of them. */
+  availableLangs?: Lang[];
+}
+
+const { lang, path, description, title, availableLangs = langs } = Astro.props;
+const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const absolute = (pathname: string) => new URL(pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={absolute(localePath(lang, path))} />
+    {availableLangs.map((l) => <link rel="alternate" hreflang={l} href={absolute(localePath(l, path))} />)}
+    {
+      availableLangs.includes(defaultLang) && (
+        <link rel="alternate" hreflang="x-default" href={absolute(localePath(defaultLang, path))} />
+      )
+    }
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={site.title}
+      href={absolute(localePath(lang, '/rss.xml'))}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content={title ? 'article' : 'website'} />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:title" content={title ?? site.title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={absolute(localePath(lang, path))} />
+    <meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+    <script is:inline>
+      // Set the theme before first paint: saved choice first, then the OS setting.
+      (() => {
+        let theme;
+        try {
+          theme = localStorage.getItem('theme');
+        } catch {}
+        if (theme !== 'light' && theme !== 'dark') {
+          theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
+    {
+      import.meta.env.PROD && site.gaId && (
+        <>
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`} />
+          <script is:inline define:vars={{ gaId: site.gaId }}>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', gaId);
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body>
+    <Header lang={lang} path={path} availableLangs={availableLangs} />
+    <main class="container">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>
+
+<style>
+  main {
+    padding-block: 1.5rem 4rem;
+  }
+</style>

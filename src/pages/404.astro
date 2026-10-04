@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import { defaultLang, langs, localePath, ui } from '../i18n';
+
+// One file serves every missing URL, so it answers in both languages.
+---
+
+<Base lang={defaultLang} path="/404.html" title="404" description={ui[defaultLang].notFound} availableLangs={[]}>
+  <h1>404</h1>
+  {
+    langs.map((lang) => (
+      <p lang={lang}>
+        {ui[lang].notFound} <a href={localePath(lang)}>{ui[lang].home}</a>
+      </p>
+    ))
+  }
+</Base>
+
+<style>
+  h1 {
+    margin: 1rem 0;
+    font-size: 2rem;
+  }
+
+  p {
+    margin: 0 0 0.5rem;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  <style>
+    rect { fill: #cfcdc6; }
+    .up { fill: #3451d1; }
+    @media (prefers-color-scheme: dark) {
+      rect { fill: #3a3d43; }
+      .up { fill: #9bb0ff; }
+    }
+  </style>
+  <rect class="up" x="0" y="0" width="4" height="4" rx="1"/>
+  <rect class="up" x="6" y="0" width="4" height="4" rx="1"/>
+  <rect x="12" y="0" width="4" height="4" rx="1"/>
+  <rect x="0" y="6" width="4" height="4" rx="1"/>
+  <rect class="up" x="6" y="6" width="4" height="4" rx="1"/>
+  <rect class="up" x="12" y="6" width="4" height="4" rx="1"/>
+  <rect x="0" y="12" width="4" height="4" rx="1"/>
+  <rect x="6" y="12" width="4" height="4" rx="1"/>
+  <rect class="up" x="12" y="12" width="4" height="4" rx="1"/>
+</svg>
