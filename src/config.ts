@@ -7,11 +7,12 @@ export const site = {
   },
   // Google Analytics measurement ID. Set to '' to turn analytics off.
   gaId: 'G-5X6JK5ZNF1',
-  // Comments via https://giscus.app. They stay hidden until categoryId is set.
+  // Comments via https://giscus.app, stored in this repository's Discussions.
+  // Set categoryId to '' to hide comments.
   giscus: {
     repo: 'isingmodel/isingmodel.github.io',
     repoId: 'MDEwOlJlcG9zaXRvcnkzMjI3Njk3NjQ=',
     category: 'Announcements',
-    categoryId: '',
+    categoryId: 'DIC_kwDOEz0TZM4DHBL7',
   },
 };

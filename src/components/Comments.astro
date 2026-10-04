@@ -24,6 +24,10 @@ const { repo, repoId, category, categoryId } = site.giscus;
       data-lang={lang}
     >
       <h2>{ui[lang].comments}</h2>
+      <p class="hint">
+        {ui[lang].commentsSignIn}{' '}
+        <a href={`https://github.com/${repo}/discussions`}>{ui[lang].viewDiscussions}</a>
+      </p>
     </section>
   )
 }
@@ -71,7 +75,13 @@ const { repo, repoId, category, categoryId } = site.giscus;
   }
 
   h2 {
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.75rem;
     font-size: 1.15rem;
+  }
+
+  .hint {
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
   }
 </style>

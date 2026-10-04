@@ -1,3 +1,4 @@
+# Allow every crawler, including search engines and AI bots, on every path.
 User-agent: *
 Allow: /
 

@@ -87,11 +87,17 @@ Korean is the default language and lives at the root (`/`). English lives under 
 
 ## Comments
 
-Comments use [giscus](https://giscus.app), which stores them in this repository's GitHub Discussions. Both languages of a post share one thread. To turn them on:
+Comments use [giscus](https://giscus.app), which stores them in this repository's GitHub Discussions under **Announcements**. Posts and project pages have comments; both languages of a page share one thread. Visitors sign in with GitHub to comment or react, and comments follow the site's light/dark theme. Moderate them in [GitHub Discussions](https://github.com/isingmodel/isingmodel.github.io/discussions).
+
+The repository and category IDs are configured in `src/config.ts`. Set `giscus.categoryId` to `''` to hide comments. When moving the site to another repository:
 
 1. Enable Discussions in the repository settings.
 2. Install the [giscus app](https://github.com/apps/giscus) on this repository.
-3. Pick the repository and the "Announcements" category on [giscus.app](https://giscus.app), copy the `data-category-id` value it shows, and paste it into `giscus.categoryId` in `src/config.ts`.
+3. Pick the repository and the "Announcements" category on [giscus.app](https://giscus.app), then copy `data-repo`, `data-repo-id`, `data-category`, and `data-category-id` into the corresponding `giscus` settings in `src/config.ts`.
+
+## Crawlers
+
+`public/robots.txt` allows every crawler, including search engines and AI bots, to access every path and points to the sitemap. Pages also explicitly permit indexing, following links, and unrestricted text/video snippets and large image previews. GitHub Pages serves the static site without an application-level bot filter.
 
 ## Deploy
 
