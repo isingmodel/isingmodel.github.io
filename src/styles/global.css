@@ -10,8 +10,18 @@
     'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   --mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
   --width: 44rem;
+  /* Project pages hang facts and figures in a right-hand margin when there is room. */
+  --margin: 0rem;
+  --margin-gap: 0rem;
 
   color-scheme: light;
+}
+
+@media (min-width: 80rem) {
+  :root {
+    --margin: 14rem;
+    --margin-gap: 2rem;
+  }
 }
 
 :root[data-theme='dark'] {
@@ -74,6 +84,45 @@ h3 {
   padding-inline: 1.25rem;
 }
 
+.back-link {
+  margin: 3.5rem 0 0;
+  font-size: 0.95rem;
+}
+
+.back-link a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back-link a:hover {
+  color: var(--text);
+}
+
+/* Figures keep their white paper in the dark theme, a little dimmed to cut the glare. */
+:root[data-theme='dark'] main img {
+  filter: brightness(0.9);
+}
+
+/* Project status, drawn as a lattice spin: filled while active, hollow once archived. */
+.status-mark {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.5em;
+  border: 1.5px solid var(--muted);
+  border-radius: 1.5px;
+  background: var(--muted);
+}
+
+.status-mark[data-status='active'] {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.status-mark[data-status='archived'] {
+  background: none;
+}
+
 /* Rendered Markdown */
 
 .prose > :first-child {
@@ -114,6 +163,8 @@ h3 {
   height: auto;
   border: 1px solid var(--line);
   border-radius: 8px;
+  /* Charts and screenshots are drawn for white paper, in either theme. */
+  background: #fff;
 }
 
 .prose blockquote {
@@ -133,6 +184,8 @@ h3 {
   overflow-x: auto;
   border-collapse: collapse;
   font-size: 0.95rem;
+  /* A narrow table scrolls sideways instead of splitting words. */
+  overflow-wrap: normal;
 }
 
 .prose th,
@@ -140,6 +193,7 @@ h3 {
   padding: 0.4rem 0.75rem;
   border: 1px solid var(--line);
   text-align: left;
+  font-variant-numeric: tabular-nums;
 }
 
 .prose code {
@@ -173,6 +227,23 @@ h3 {
   overflow-x: auto;
   overflow-y: hidden;
   padding-block: 0.25rem;
+}
+
+/* Project pages: each section is one finding, and figures reach into the margin. */
+
+.project-prose h2 {
+  margin-top: 3.5rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--line);
+}
+
+.project-prose p:has(> img) {
+  margin-block: 1.75rem;
+  margin-right: calc(-1 * (var(--margin) + var(--margin-gap)));
+}
+
+.project-prose img {
+  width: 100%;
 }
 
 /* Shiki renders both themes; this switches code to the dark one. */

@@ -14,6 +14,7 @@ const { lang, path, availableLangs } = Astro.props;
 const t = ui[lang];
 const tabs = [
   { label: t.posts, path: '/', active: path === '/' || path.startsWith('/posts/') },
+  { label: t.projects, path: '/projects/', active: path.startsWith('/projects/') },
   { label: t.about, path: '/about/', active: path === '/about/' },
 ];
 ---

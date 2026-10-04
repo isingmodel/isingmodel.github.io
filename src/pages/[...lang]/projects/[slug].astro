@@ -1,0 +1,198 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Comments from '../../../components/Comments.astro';
+import PostList from '../../../components/PostList.astro';
+import { defaultLang, formatDate, localePath, ui, type Lang } from '../../../i18n';
+import { getPosts } from '../../../lib/posts';
+import { getProjects, type Project } from '../../../lib/projects';
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({
+    params: { lang: project.lang === defaultLang ? undefined : project.lang, slug: project.slug },
+    props: {
+      project,
+      availableLangs: projects.filter((other) => other.slug === project.slug).map((other) => other.lang),
+    },
+  }));
+}
+
+interface Props {
+  project: Project;
+  availableLangs: Lang[];
+}
+
+const { project, availableLangs } = Astro.props;
+const { slug, lang, entry } = project;
+const { title, description, status, updated, repo, cover, facts } = entry.data;
+const t = ui[lang];
+const { Content } = await render(entry);
+const relatedPosts = (await getPosts(lang)).filter((post) => post.entry.data.project === slug);
+---
+
+<Base lang={lang} path={`/projects/${slug}/`} title={title} description={description} availableLangs={availableLangs}>
+  <article>
+    <header>
+      <div>
+        <h1>{title}</h1>
+        <p class="pitch">{description}</p>
+        {
+          repo && (
+            <a class="button" href={`https://github.com/${repo}`}>
+              {t.viewOnGithub}
+            </a>
+          )
+        }
+      </div>
+      <dl>
+        <div>
+          <dt>{t.status}</dt>
+          <dd><span class="status-mark" data-status={status}></span>{t[status]}</dd>
+        </div>
+        <div>
+          <dt>{t.updated}</dt>
+          <dd><time datetime={updated.toISOString()}>{formatDate(updated, lang)}</time></dd>
+        </div>
+        {
+          facts.map((fact) => (
+            <div>
+              <dt>{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </header>
+    {
+      cover && (
+        <Image
+          class="lead"
+          src={cover.src}
+          alt={cover.alt}
+          widths={[640, 960, 1840]}
+          sizes="(min-width: 80rem) 57.5rem, (min-width: 44rem) 41.5rem, 100vw"
+          loading="eager"
+        />
+      )
+    }
+    <div class="prose project-prose">
+      <Content />
+    </div>
+  </article>
+  {
+    relatedPosts.length > 0 && (
+      <section class="related">
+        <h2>{t.relatedPosts}</h2>
+        <PostList posts={relatedPosts} lang={lang} />
+      </section>
+    )
+  }
+  <Comments term={`projects/${slug}`} lang={lang} />
+  <p class="back-link"><a href={localePath(lang, '/projects/')}>← {t.allProjects}</a></p>
+</Base>
+
+<style>
+  header {
+    margin: 1.5rem 0 2.5rem;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: clamp(2rem, 1.2rem + 3.2vw, 2.75rem);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .pitch {
+    margin: 1rem 0 0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+
+  .button {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .button:hover {
+    background: var(--accent);
+  }
+
+  /* Fact sheet: in the text column by default, in the margin when there is one. */
+  dl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    column-gap: 2rem;
+    margin: 2rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  dl > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  dt {
+    flex: none;
+    color: var(--muted);
+  }
+
+  dd {
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  @media (min-width: 80rem) {
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) var(--margin);
+      column-gap: var(--margin-gap);
+      margin-right: calc(-1 * (var(--margin) + var(--margin-gap)));
+    }
+
+    dl {
+      display: block;
+      margin: 0.5rem 0 0;
+    }
+
+    dl > div:last-child {
+      border-bottom: 1px solid var(--line);
+    }
+  }
+
+  .lead {
+    display: block;
+    width: calc(100% + var(--margin) + var(--margin-gap));
+    max-width: none;
+    height: auto;
+    margin-bottom: 2.5rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .related {
+    margin-top: 4rem;
+  }
+
+  .related h2 {
+    margin: 0 0 1rem;
+    font-size: 1.15rem;
+  }
+</style>

@@ -37,6 +37,39 @@ draft: false   # optional; drafts show up in `npm run dev` only
 - Images sit next to the post and are referenced as `![alt text](./figure.png)`.
 - Math is written as `$inline$` or `$$display$$` and rendered with KaTeX.
 - A post with only one language file appears only in that language. On it, the language switch leads to the other language's home page.
+- Add `project: <project-folder-name>` to link a post to a project. The post then points to the project, and the project lists the post.
+
+## Write a project page
+
+A project page presents a body of work rather than a dated article. It has a fact sheet and a lead figure, and its figures are wider than the text on large screens. It works like a post, in its own folder:
+
+```
+src/content/projects/my-project/
+├── ko.md        → /projects/my-project/
+├── en.md        → /en/projects/my-project/
+└── charts/      (images, shared by both)
+```
+
+Each file starts with:
+
+```yaml
+---
+title: "Project title"
+description: "One or two sentences shown under the title and in the project list."
+status: active            # active, complete, or archived
+updated: 2026-08-13       # when the project or its data last changed
+repo: owner/name          # optional; adds the "View on GitHub" button
+cover:                    # optional; the figure that leads the page
+  src: ./charts/overview.png
+  alt: "What the figure shows"
+facts:                    # optional; extra rows in the fact sheet
+  - { label: "License", value: "Apache-2.0" }
+---
+```
+
+Below that, write the page in Markdown. Each `##` heading starts a new section, and every image stretches into the right-hand margin when the screen is wide enough.
+
+Charts and numbers are copies. When a project's data changes, update the page and its `updated` date here too.
 
 ## Where things are
 
@@ -46,6 +79,7 @@ draft: false   # optional; drafts show up in `npm run dev` only
 | `src/i18n.ts` | Languages and every piece of interface text |
 | `src/content/about/` | The About page, one file per language |
 | `src/pages/[...lang]/` | Page templates; each one is built once per language |
+| `src/content/projects/` | Project pages, one folder per project |
 | `src/components/` | Header tabs, language switch, theme toggle, lattice, comments |
 | `src/styles/global.css` | Colours, fonts, and post typography |
 

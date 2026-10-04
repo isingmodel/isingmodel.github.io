@@ -5,6 +5,7 @@ import Base from '../../../layouts/Base.astro';
 import Comments from '../../../components/Comments.astro';
 import { defaultLang, formatDate, localePath, ui, type Lang } from '../../../i18n';
 import { getPosts, type Post } from '../../../lib/posts';
+import { getProjects } from '../../../lib/projects';
 
 export async function getStaticPaths() {
   const posts = await getPosts();
@@ -26,6 +27,13 @@ const { post, availableLangs } = Astro.props;
 const { slug, lang, entry } = post;
 const { title, description, date } = entry.data;
 const { Content } = await render(entry);
+
+// The project this post belongs to, in this language if it has been translated.
+const projects = entry.data.project ? (await getProjects()).filter((p) => p.slug === entry.data.project) : [];
+if (entry.data.project && projects.length === 0) {
+  throw new Error(`Post "${entry.id}" names a project that does not exist: "${entry.data.project}"`);
+}
+const project = projects.find((p) => p.lang === lang) ?? projects[0];
 ---
 
 <Base lang={lang} path={`/posts/${slug}/`} title={title} description={description} availableLangs={availableLangs}>
@@ -33,13 +41,21 @@ const { Content } = await render(entry);
     <header>
       <time datetime={date.toISOString()}>{formatDate(date, lang)}</time>
       <h1>{title}</h1>
+      {
+        project && (
+          <p class="project">
+            {ui[lang].project}:{' '}
+            <a href={localePath(project.lang, `/projects/${project.slug}/`)}>{project.entry.data.title}</a>
+          </p>
+        )
+      }
     </header>
     <div class="prose">
       <Content />
     </div>
   </article>
   <Comments term={slug} lang={lang} />
-  <p class="back"><a href={localePath(lang)}>← {ui[lang].allPosts}</a></p>
+  <p class="back-link"><a href={localePath(lang)}>← {ui[lang].allPosts}</a></p>
 </Base>
 
 <style>
@@ -58,17 +74,9 @@ const { Content } = await render(entry);
     font-size: 2rem;
   }
 
-  .back {
-    margin: 3.5rem 0 0;
-    font-size: 0.95rem;
-  }
-
-  .back a {
+  .project {
+    margin: 0.75rem 0 0;
     color: var(--muted);
-    text-decoration: none;
-  }
-
-  .back a:hover {
-    color: var(--text);
+    font-size: 0.9rem;
   }
 </style>
