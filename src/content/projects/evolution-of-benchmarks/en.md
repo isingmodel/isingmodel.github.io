@@ -1,8 +1,8 @@
 ---
 title: "The Evolution of Benchmarks in Frontier Models"
-description: "How the evaluations named in OpenAI, Google, and Anthropic model announcements change over time."
+description: "A history of the benchmarks named in OpenAI, Google, and Anthropic model announcements: how the task mix changes, which tests recur, and what the evidence supports."
 status: active
-updated: 2026-10-04
+updated: 2026-10-07
 repo: isingmodel/evolution_of_benchmarks_in_frontier_models
 cover:
   src: ./charts/benchmark_evolution.png
@@ -15,104 +15,127 @@ facts:
   - { label: "Data through", value: "2026-09-30" }
   - { label: "License", value: "Apache-2.0" }
 ---
-Which kinds of tasks appear in each model's benchmark portfolio, the set of benchmarks named at its launch? How does that mix change over time? Which benchmarks become shared reference points, and which keep returning in later releases? This project pairs a visual history of model releases with a catalog that links every entry to its source and a reproducible analysis of how each benchmark has been reported over time.
+Benchmarks are sets of tasks used to evaluate AI models, such as answering questions, writing code, or using tools. New model announcements arrive with collections of benchmark results. Some names recur across companies and generations; others appear briefly or only at one company. Following those names over time offers a way to study how the public evaluation of frontier models is changing.
 
-The evidence is the benchmark names that appear on a selected set of public launch pages. A name counts wherever it appears: in a result, a comparison, a footnote, a list of a suite's components, or a partner's quotation. An appearance does not by itself mean that the page reports a score for the new model, that the benchmark is featured prominently, or that it was used in training.
+This project traces the benchmarks named in selected announcements of leading AI models from OpenAI, Google, and Anthropic. It asks three questions: what kinds of tasks appear, which benchmarks become common reference points, and how often a benchmark returns after its first appearance. The timeline above gives an overview of the releases; the analyses below follow the patterns behind it.
 
-The data currently covers 59 models from 55 announcements dated through September 30, 2026, and the search for new releases extends to October 4, 2026. Throughout this page, a *model* is one named model, and variants announced together are separate models that share one *announcement*. A *benchmark* is one entry in the project's catalog: alternative names for the same benchmark resolve to a single entry, while explicit versions, such as Terminal-Bench 2.0 and 2.1, stay separate. The repository calls these units model rows and benchmark identities.
+The September 30, 2026 snapshot reveals a small shared set alongside many benchmarks seen only once. It also shows a growing share of tasks classified as agentic, although the size of that shift depends strongly on classifications that still need review.
 
-## Benchmark types across model releases
+## What the dataset records
 
-The timeline at the top of this page places every model by provider and release date and draws the mix of its reported benchmarks as a pie chart. The five colors are task modes, a compact summary of the project's more detailed taxonomy: Agentic, Multimodal Perception, Generative Reasoning, Constraint Satisfaction, and Knowledge Retrieval.
+The sample contains 59 named models from 55 announcements, spanning November 2022 to September 2026. It covers selected general-purpose frontier models and cybersecurity variants, including releases with restricted access. The search for additional releases was last checked on October 4, 2026; the figures in this article use announcements dated through September 30.
 
-Every model is drawn, but only some are named, which keeps the overview readable; the [fully labeled view](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_evolution_detail.png) names every one. Read the colors as a summary of the kinds of tasks represented on each launch page. The categories are derived from classification labels that are still provisional, and "Agentic" covers more than the explicit tool and environment interaction measured below. The [methods for this view](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_evolution/README.md) explain how the chart is drawn and how benchmarks without a classification are handled.
+| Company | Named models | Announcements | Announcements naming benchmarks |
+| --- | ---: | ---: | ---: |
+| Anthropic | 21 | 21 | 19 |
+| Google | 17 | 14 | 14 |
+| OpenAI | 21 | 20 | 18 |
+| Total | 59 | 55 | 51 |
 
-## Benchmark types over time
+A model and an announcement are different units. Several named variants can share a launch page, so counting each variant separately gives that page more influence. The release timeline keeps the variants separate to show every model. The analyses of shared benchmarks and reporting histories group models announced by the same company on the same date and source page into one announcement.
 
-A trailing 180-day window brings out how the mix changes over time. Each model with at least one recorded benchmark carries one unit of weight, split evenly across the benchmark mentions recorded for it. A benchmark that appears again in a later release counts again, so the chart shows the composition of reporting, not a count of newly created benchmarks. Within each window, the classified weight is scaled to 100%, and a window with no classified observations is left as a gap.
+The catalog brings alternative names for the same benchmark together. Explicit versions, such as Terminal-Bench 2.0 and 2.1, remain separate entries. Of its 288 entries, 286 appear in the sample by the cutoff. Some older entries combine variants, and a benchmark suite and its components can each be named, so the catalog count should not be read as a count of independent tests.
 
-![Stacked area chart of the share of five benchmark task modes over a trailing 180-day window, from 2023 to September 2026. The Agentic share first appears in September 2024 and grows to roughly 70% by September 2026.](./charts/benchmark_growth.png)
+Every recorded appearance comes from a public launch page. A name can appear in a score table, a comparison, a footnote, a component list, or a partner quotation. These are all included. The resulting history describes what companies mention in public; a mention alone does not establish that the new model was scored on that benchmark, that the benchmark was prominent, or that it was used in training.
 
-The chart describes reporting as seen through the taxonomy, and several things shape it. Releases are sparse in the early period, and the mix of providers shifts over time. Missing classifications and provisional labels affect the categories themselves. The [task-mode and domain panels](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_growth_by_all_category.png) and the [multi-facet view](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_facet_trends.png) add complementary detail, and the [trend methods](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_taxonomy_trends/README.md) set out the rules for windows, denominators, and missing data.
+## How the mix of tasks changes
 
-Both views count every named model separately, including variants announced together. The sharing and lifecycle analyses below instead count each announcement once, and the interaction analysis compares the two units.
+The opening timeline places each model at its release date in a lane for its company. Each pie shows the task mix of the benchmarks recorded for that model. The circles have equal size, so a larger number of benchmarks does not produce a larger marker. Hollow circles mark models with no recorded benchmarks, and only some model names are printed to keep the overview readable.
 
-## A small shared set accounts for most reporting
+The five colors compress a more detailed classification into broad task categories:
 
-Only 25.9% of the observed benchmarks appear at more than one provider, yet they account for 62.1% of benchmark–announcement observations, which count a benchmark once for every announcement that names it. Of the 286 observed benchmarks, 74 appear at two or more providers, and 38 of those appear at all three.
+| Category | What it describes |
+| --- | --- |
+| Agentic | Tasks labeled for planning, tool use, or action in an environment |
+| Multimodal Perception | Understanding images, audio, video, or combinations of these with text |
+| Generative Reasoning | Reasoning through problems or generating solutions, including code |
+| Constraint Satisfaction | Following instructions or meeting rules, formats, and safety constraints |
+| Knowledge Retrieval | Recalling or retrieving information, including tasks centered on long context |
 
-![Three stacked bars dividing the observed sample by the number of providers that report each benchmark. Of the 286 benchmarks, 74.1% appear at only one provider, but benchmarks shared by two or three providers make up 62.1% of the 745 observations and 63.3% of the weight when every announcement counts equally.](./charts/benchmark_shared_core.png)
+A benchmark can involve several of these activities. The chart assigns one color using a fixed priority rule over its detailed labels. The categories are therefore a visual summary of overlapping properties, and many underlying labels are provisional. In particular, the broad Agentic category can include planning without tool use. Explicit tool and environment interaction is examined separately later in this article.
 
-The pattern holds when every announcement counts equally. If each announcement that names at least one benchmark receives one unit of weight, divided across its benchmarks, shared benchmarks make up 63.3% of the average portfolio. Long benchmark tables and jointly announced variants therefore do not explain the shared majority by themselves.
+The next figure combines releases within a moving 180-day window. Under this classification, the Agentic category first appears in September 2024 and reaches roughly 70% of the classified task mix by September 2026.
 
-This result counts catalog entries: explicit versions remain separate, while some older entries combine several variants. It does not show concentration among benchmark families, and it does not show that providers score a shared benchmark under comparable protocols. The [counts under both weightings](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/sharing_summary.csv) are in the repository.
+![Share of five benchmark task categories within a moving 180-day window, from 2023 to September 2026. The Agentic share first appears in September 2024 and reaches roughly 70% by September 2026.](./charts/benchmark_growth.png)
 
-## Each benchmark has a reporting history
+To build the chart, each model with recorded benchmarks receives one unit of weight, divided evenly across its recorded benchmark mentions. Repeated appearances in later releases count again, and jointly announced variants each contribute separately. Within each window, the weight with a usable classification is scaled to 100%; windows without classified observations remain blank.
 
-Of the observed benchmarks, 169 appear in only one announcement, and 136 of those first entered the sample in 2026. Recent arrivals have had less time to reappear, so a single appearance is not a finished lifetime. The lifecycle analysis follows every catalog entry through its first and last sightings, its recurrence, its spread across providers, and the gaps in its reporting.
+The changing colors show a shift in the tasks represented on launch pages. Their proportions also depend on which companies released models in each period and which benchmarks have labels. Early releases are sparse, and unclassified benchmarks are excluded from the color proportions. The apparent growth of Agentic tasks therefore needs to be read alongside the classification checks below.
 
-![Timeline of 15 selected benchmarks from 2023 to 2026. Provider-coded markers show each announcement that mentions a benchmark, and a grey line runs from its first observed mention to its last.](./charts/benchmark_lifecycle.png)
+## A small shared set accounts for most appearances
 
-Each marker sits on an actual announcement date. The grey line connects a benchmark's first and last sightings and can contain gaps. A last sighting does not establish that a benchmark has been retired, saturated, or replaced. The [complete catalog report](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md) covers all 288 entries, including 2 not yet observed by this cutoff. The [provider histories](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/provider_lifecycles.csv) also count each provider's later launches, including pages with no recorded benchmarks, so a gap can be read against that provider's release cadence.
+Most benchmark names in the sample belong to just one company's announcement history. Only 74 of the 286 observed benchmarks, or 25.9%, appear at two or more companies. Of these, 38 appear at all three.
 
-### How often does reporting spread to another provider?
+Those shared benchmarks recur often. Across the 51 announcements that name benchmarks, there are 745 distinct benchmark–announcement pairs: one pair for each benchmark named in each announcement. The shared set accounts for 62.1% of those pairs.
 
-The table shows how many benchmarks are seen at a second provider within a fixed window after their first appearance. A benchmark is eligible only when the entire window fits inside the period the data covers, and benchmarks that never reach a second provider are included.
+![Three bars compare benchmark counts, benchmark–announcement pairs, and equal-announcement weights. Shared benchmarks are 25.9% of observed entries but account for 62.1% of pairs and 63.3% of equal-announcement weight.](./charts/benchmark_shared_core.png)
 
-| Follow-up window | Eligible benchmarks | Seen at a second provider within the window | Share |
+The pattern also holds when every announcement has equal influence. Give each announcement one unit of weight and divide it across its distinct benchmarks: a page naming ten benchmarks contributes one tenth to each, while a page naming two contributes one half to each. Under this calculation, shared benchmarks account for 63.3% of the average announcement's benchmark mix. The result persists after reducing the influence of long benchmark lists and grouping jointly announced variants.
+
+This is evidence of recurring common reference points within the sample. It does not establish that companies use identical scoring protocols or that their published scores are directly comparable. The calculation follows catalog entries, including separate versions, rather than merging all versions into benchmark families.
+
+## A single appearance does not establish a short lifetime
+
+At the other end of the distribution, 169 benchmarks appear in only one announcement. Of those, 136 first enter the sample in 2026. Many have therefore had little time to appear again before the cutoff.
+
+The reporting histories below help distinguish repeated appearances from long gaps. Each marker is an announcement that names the benchmark, and its shape identifies the company. The grey line connects the first and last recorded appearances; it can span periods with no mentions.
+
+![Reporting histories of 15 selected benchmarks. Company-specific markers show announcements that name each benchmark, and grey lines connect their first and last recorded appearances.](./charts/benchmark_lifecycle.png)
+
+GSM8K, a math benchmark, and HumanEval, a coding benchmark, appear among the earlier entries. Later entries include OSWorld-Verified, which tests computer use, and successive versions of Terminal-Bench, which evaluates tasks in a terminal environment. Keeping those versions on separate rows makes changes in the reported version visible.
+
+These histories have two important boundaries. The first recorded appearance is the benchmark's entry into this selected sample, which may be later than its publication. The last recorded appearance only marks the end of the evidence available here. It cannot establish that the benchmark was retired, saturated, or replaced. A gap also needs to be read against the company's release schedule: months without a new launch provide fewer opportunities for another mention.
+
+### How often does a benchmark appear at another company?
+
+For each benchmark, the analysis starts a clock at its first recorded appearance and asks whether a second company names it within 30, 90, or 180 days. A benchmark enters a calculation only if the entire follow-up period ends by September 30, 2026. Those that remain exclusive to one company are included in the denominator.
+
+| Follow-up period | Benchmarks with complete follow-up | Named by a second company within the period | Share |
 | --- | ---: | ---: | ---: |
 | 30 days | 209 | 26 | 12.4% |
 | 90 days | 160 | 50 | 31.2% |
 | 180 days | 113 | 45 | 39.8% |
 
-Each row has a different set of eligible benchmarks. The clock starts at a benchmark's first mention in this dataset, not at its publication, and an eligible window does not necessarily contain a launch by another provider. Follow-up ends on 2026-09-30. These shares describe reporting in this sample; they are not a survival curve or a field-wide probability of adoption. The [window definitions and evidence](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/README.md#diffusion-with-complete-calendar-follow-up) are in the overview methods.
+For example, 45 of the 113 benchmarks with a full 180 days of follow-up appear at a second company within that period. A benchmark first mentioned near the cutoff cannot yet contribute to this six-month comparison.
 
-## How much depends on the classification?
+Each row follows a different set of benchmarks, so the percentages cannot be joined into a single adoption curve. A full calendar window also does not guarantee that another company launched a model during it. The table describes how mentions spread within this sample, with those differences in opportunity left visible.
 
-The project also measures explicit interaction with tools or environments. This narrower measure requires an interaction label for tool use, an environment, a browser, a terminal or codebase, or computer control. Static code generation, unit-test scoring, and planning do not qualify on their own.
+## The agentic trend depends on the labels
 
-Take 2026, with equal weight for each announcement that names a benchmark. Counting all active labels, provisional ones included, 64.0% of portfolio weight carries a tool or environment interaction label. Keeping only labels with a confidence rating of at least 0.70 gives 17.2%. With that filter, only 36.6% of portfolio weight has any label on the interaction axis. Accepted labels, those that have passed review, cover 0.0%.
+The broad task chart raises a more specific question: how much of the reported benchmark mix requires interaction with tools or an environment? Here the analysis uses labels for tool use, environment interaction, browsing, terminal or codebase interaction, and computer control. Static code generation, unit-test scoring, or planning alone does not meet this definition.
 
-![Two line charts by announcement year, 2023 to 2026. Left: using all active labels, the share of portfolio weight with a tool or environment interaction label rises to 64.0% in 2026; using only labels rated at least 0.70, it peaks at 32.4% in 2025 and falls to 17.2% in 2026. Right: coverage by labels rated at least 0.70 drops from about 99% in 2025 to 36.6% in 2026, and coverage by accepted labels falls from about 20% in 2023 to zero from 2025 on.](./charts/interaction_taxonomy_sensitivity.png)
+The calculation gives each announcement equal weight, as in the shared-benchmark analysis. It then compares three choices of labels: all current labels, those with a confidence rating of at least 0.70, and those that have passed review. A confidence rating is a filter for checking sensitivity; it is neither a probability of correctness nor a substitute for review.
 
-The gap between the two estimates makes label quality part of the result. A confidence rating of at least 0.70 is a sensitivity filter, not a completed review. Benchmarks without a label keep their weight in the denominator. Zero coverage by accepted labels means there is no reviewed basis for an estimate; it is not evidence that interaction is absent.
+For the 26 announcements in 2026 that name benchmarks, the choices produce very different results:
 
-| Year | Announcements | Share, all active labels | Share, labels rated ≥0.70 | Coverage, labels rated ≥0.70 | Coverage, accepted labels |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| 2023 | 3 | 0.0% | 0.0% | 98.2% | 20.2% |
-| 2024 | 8 | 9.7% | 6.6% | 99.1% | 13.6% |
-| 2025 | 14 | 35.9% | 32.4% | 99.2% | 0.0% |
-| 2026 YTD | 26 | 64.0% | 17.2% | 36.6% | 0.0% |
+| Labels used | Weight tagged for tool or environment interaction | Weight with any interaction classification |
+| --- | ---: | ---: |
+| All current labels, including provisional ones | 64.0% | 100.0% |
+| Labels with confidence ≥0.70 | 17.2% | 36.6% |
+| Reviewed and accepted labels only | No reviewed estimate | 0.0% |
 
-The shares and the coverage figures use the same denominator: the full weight of all announcements, labeled or not. Coverage means that at least one interaction label remains after filtering, including labels for static tasks. Counting by model instead of by announcement changes the 2026 estimate based on all active labels from 64.0% to 64.4%. The [provider-level comparisons](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/provider_interaction_trends.csv) and the [exact labels retained](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/interaction_classification.csv) allow closer inspection. The older [broad proxy for software and tool tasks](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/README.md) also counted static coding tests and remains as an exploratory comparison.
+The last column measures classification coverage. A benchmark is covered when it has a retained label describing its interaction pattern, including a label that identifies a static task. Both columns use the full original weight as their denominator. Benchmarks that lose their labels remain unknown and keep their weight; the remaining labels are not scaled up to fill the gap.
 
-## Sample and method
+![Annual interaction shares and classification coverage from 2023 to 2026. All current labels give a 64.0% interaction share in 2026, while the confidence filter gives 17.2% with only 36.6% coverage. Reviewed-label coverage is zero from 2025 onward.](./charts/interaction_taxonomy_sensitivity.png)
 
-| Provider | Models | Announcements | With benchmarks | First tracked | Latest tracked |
-| --- | ---: | ---: | ---: | --- | --- |
-| Anthropic | 21 | 21 | 19 | 2023-03-14 | 2026-09-28 |
-| Google | 17 | 14 | 14 | 2023-12-06 | 2026-09-30 |
-| OpenAI | 21 | 20 | 18 | 2022-11-30 | 2026-09-29 |
+This coverage gap explains why the estimates need care. In 2025, labels meeting the confidence threshold cover 99.2% of the weight and give a 32.4% interaction share. In 2026, coverage falls to 36.6% and the measured share falls to 17.2%. That comparison alone cannot establish a decline in interactive tasks. Likewise, zero coverage by reviewed labels means there is no reviewed basis for an estimate.
 
-The sample covers selected general-purpose frontier releases and their cybersecurity variants, including launches with restricted access. It is not an exhaustive history of models.
+Counting named models separately changes the 2026 estimate using all current labels only slightly, from 64.0% to 64.4%. Label selection has a much larger effect. Across the full classification table, only 36 of 4,052 labels are accepted; 3,956 still need review, and 60 come from an older classification process without full review. Establishing what a benchmark name refers to and reviewing the tasks it measures are separate pieces of work.
 
-Of the 55 announcements, 51 name at least one benchmark, and together they yield 745 benchmark–announcement observations. An announcement is identified by its provider, release date, and normalized source URL, and benchmark aliases resolve through exact mappings. The [annual inventory](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/annual_inventory.csv) shows how uneven the coverage is from year to year, and the [overview methods](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/README.md) define the denominators and reconcile the counts of raw labels, models, and announcement observations.
+## What this history tells us
 
-A named suite and its components can both appear, so the counts are not counts of independent tests. Some older labels combine versions, and launch pages may have been edited since release. A first sighting is the first appearance in this sample, not archival proof of when a benchmark entered public use.
+The clearest pattern is the coexistence of recurring shared benchmarks and a long list of names seen only once. A minority of benchmarks accounts for most recorded appearances, even when announcements receive equal weight. The task charts add a useful view of how the reported mix changes, but the strength of the apparent agentic shift remains sensitive to unfinished classification work.
 
-The classification table contains 4,052 labels: 36 are accepted, 3,956 still need review, and 60 were generated from an older taxonomy without full review. Approving a benchmark's identity and approving its labels are separate steps. The [data audit](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/readme_data_audit_2026_10_04.md) records corrections, including MTOB's task definition and previously missing mentions, along with the unresolved lineage of MRCR. The [release audit](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/data_refresh_2026_10_04.md) records what the search for new releases covered.
+The sample is selective, its coverage varies over time, and launch pages may have changed since publication. It provides a history of public benchmark mentions rather than a complete account of model evaluation. The next steps are to review the labels that most affect the results, document relationships between benchmark versions and families, and distinguish direct results from comparisons, component lists, and quotations. Archived launch pages and benchmark publication dates would also make the timing analysis more informative.
 
-## Explore the evidence
+## Data and further reading
 
-| Question | Start here |
-| --- | --- |
-| Which benchmarks did a launch page name? | [Model inventory and source URLs](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/models.csv) |
-| What does a benchmark name refer to? | [Catalog](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmarks.csv), [aliases](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_aliases.csv), [distinctness decisions](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_distinctness.csv) |
-| Where has a given benchmark appeared? | [Complete lifecycle report](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md) and [source-linked observations](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/launch_mentions.csv) |
-| How many benchmarks does each release report? | [Benchmark counts per release](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/assets/benchmark_count_per_release.png) |
-| What about long context, benchmark authorship, and similarity between providers? | [Supporting analyses](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/README.md#exploratory-and-supporting-analyses) |
-| Which classifications need more work? | [Label data](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmark_facets.csv), [review priorities](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/readme_story/review_leverage_top.csv), [review guidelines](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/facet_review_guidelines.md) |
+The underlying records and analysis code are public, so readers can inspect individual observations or reproduce the figures:
 
-Further progress depends on three things: reviewing the provisional labels that most affect the results, documenting how benchmarks relate by family and implementation, and recording whether each mention is a direct result, a comparison, a suite component, or a quotation. The [current synthesis](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/SYNTHESIS.md) separates the supported findings from these open research questions.
+- [Model inventory and source pages](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/models.csv) and [benchmark catalog](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/data/benchmarks.csv).
+- [Calculation methods](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/README.md), including announcement weights, follow-up periods, and classification coverage.
+- [Timeline methods](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_evolution/README.md) and [moving-window methods](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_taxonomy_trends/README.md).
+- [Complete reporting histories](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/benchmark_lifecycle/report.md) for all 288 catalog entries, including the two without an appearance by this cutoff.
+- [Classification evidence](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/analysis/project_overview/interaction_classification.csv) and [data audit](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models/blob/main/docs/readme_data_audit_2026_10_04.md).
 
-The [repository README](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models#reproduce-and-extend) explains how to reproduce the analysis and extend the data.
+The [project repository](https://github.com/isingmodel/evolution_of_benchmarks_in_frontier_models#reproduce-and-extend) includes instructions for reproducing the analysis and extending the dataset.
