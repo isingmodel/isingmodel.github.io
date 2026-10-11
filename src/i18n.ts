@@ -1,4 +1,4 @@
-export const languages = { ko: '한국어', en: 'English' } as const;
+export const languages = { en: 'English', ko: '한국어' } as const;
 export type Lang = keyof typeof languages;
 export const langs = Object.keys(languages) as Lang[];
 
