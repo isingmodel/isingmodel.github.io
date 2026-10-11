@@ -246,7 +246,7 @@ h3 {
   width: 100%;
 }
 
-.project-prose .figure-caption {
+.prose .figure-caption {
   margin-top: -1rem;
   margin-bottom: 1.75rem;
   color: var(--muted);

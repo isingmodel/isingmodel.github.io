@@ -1,13 +1,7 @@
 ---
 title: "When China Was Said to Have Caught Up, US Labs Had Stronger Models in Reserve"
 description: "Revisiting seven times Chinese models approached the public leader. Convergence in public rankings alone cannot establish that chip export controls have failed."
-status: active
-updated: 2026-10-11
-facts:
-  - { label: "Chinese labs compared", value: "DeepSeek, Alibaba, Moonshot, Z.ai" }
-  - { label: "ECI observations through", value: "2026-09-22" }
-  - { label: "Evaluator snapshots", value: "2026-10-06" }
-  - { label: "Close approaches to the leader", value: "7" }
+date: 2026-10-11
 ---
 
 On January 27, 2025, DeepSeek R1's arrival fueled doubts about whether AI development needed enormous investment. Nvidia's market value [fell](https://seekingalpha.com/news/4399000-nvidia-broadcom-lead-tech-stocks-lower-amid-deepseek-ai-impact) by about $590 billion in a single day. OpenAI already had o3 in reserve. Just over a month earlier, it had [announced](https://tech.yahoo.com/computing/articles/openai-teases-breakthrough-next-generation-232702883.html) a score of 71.7% on the coding benchmark SWE-bench Verified, but ordinary users could not yet use the model.

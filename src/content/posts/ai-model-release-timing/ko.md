@@ -1,13 +1,7 @@
 ---
 title: "중국이 따라잡았다던 날, 미국 연구소 서랍엔 더 센 모델이 있었다"
 description: "중국 모델이 공개 1위에 근접한 일곱 번을 다시 봤다. 공개 순위의 수렴만으로 칩 수출통제의 실패를 판정할 수는 없다."
-status: active
-updated: 2026-10-11
-facts:
-  - { label: "중국 비교 대상", value: "DeepSeek, Alibaba, Moonshot, Z.ai" }
-  - { label: "ECI 관측 종료일", value: "2026-09-22" }
-  - { label: "평가 자료 저장일", value: "2026-10-06" }
-  - { label: "공개 1위 근접 사례", value: "7" }
+date: 2026-10-11
 ---
 
 2025년 1월 27일, DeepSeek R1이 나오면서 AI 개발에 막대한 투자가 필요한지 의문이 번졌다. Nvidia 시가총액은 하루 새 약 5,900억 달러 [줄었다](https://seekingalpha.com/news/4399000-nvidia-broadcom-lead-tech-stocks-lower-amid-deepseek-ai-impact). 그날 OpenAI의 서랍에는 o3가 있었다. 한 달여 전 코딩 시험인 SWE-bench Verified에서 71.7%를 기록했다고 [발표했지만](https://tech.yahoo.com/computing/articles/openai-teases-breakthrough-next-generation-232702883.html), 일반 이용자는 아직 쓸 수 없던 모델이다.
