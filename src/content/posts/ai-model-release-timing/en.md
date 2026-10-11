@@ -24,13 +24,13 @@ Since 2024, Chinese models came within less than five points of the public leade
 
 | Chinese model and release date | Until the next US record[^dates] | Evidence of an unreleased model at the time |
 | --- | --- | --- |
-| DeepSeek V2 · 2024-05-07 | 6 days · GPT-4o | No comparable documentation identified |
-| Qwen2 · 2024-06-07 | 13 days · Claude 3.5 Sonnet | No comparable documentation identified |
-| R1 · 2025-01-20 | 70 days · Gemini 2.5 Pro | Previously announced o3 benchmark results |
-| QwQ · 2025-03-05 | 26 days · Gemini 2.5 Pro | Previously announced o3 benchmark results |
-| Qwen3 Thinking · 2025-07-25 | 13 days · GPT-5 | No documentation for an overall capability comparison[^imo] |
-| Kimi K2 Thinking · 2025-11-06 | 12 days · Gemini 3 Pro | No comparable documentation identified |
-| Kimi K3 · 2026-07-16 | 8 days · Claude Opus 5 | A later report documenting internal models at the time |
+| DeepSeek V2 (2024-05-07) | 6 days (GPT-4o) | No comparable documentation identified |
+| Qwen2 (2024-06-07) | 13 days (Claude 3.5 Sonnet) | No comparable documentation identified |
+| R1 (2025-01-20) | 70 days (Gemini 2.5 Pro) | Previously announced o3 benchmark results |
+| QwQ (2025-03-05) | 26 days (Gemini 2.5 Pro) | Previously announced o3 benchmark results |
+| Qwen3 Thinking (2025-07-25) | 13 days (GPT-5) | No documentation for an overall capability comparison[^imo] |
+| Kimi K2 Thinking (2025-11-06) | 12 days (Gemini 3 Pro) | No comparable documentation identified |
+| Kimi K3 (2026-07-16) | 8 days (Claude Opus 5) | A later report documenting internal models at the time |
 
 I also counted releases from the same four Chinese labs that were more than five points behind during the same period. In 16 of 43 cases, about 37%, a new US record followed within 14 days. That is lower than the 71% observed for close approaches. Seven cases are a small sample, though, and a Chinese model's approach to the leader may simply have happened shortly before the next US release. This sequence alone does not establish that US labs brought releases forward in response to Chinese announcements.
 

@@ -17,7 +17,7 @@ interface Props {
 }
 
 const { lang, path, description, title, availableLangs = langs } = Astro.props;
-const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const pageTitle = title ? `${title} | ${site.title}` : site.title;
 const absolute = (pathname: string) => new URL(pathname, Astro.site).href;
 ---
 
