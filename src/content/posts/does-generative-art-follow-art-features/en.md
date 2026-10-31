@@ -69,7 +69,7 @@ The instructions were concrete. Alignment ranged from no preferred direction thr
 
 Across the four groups, five measurements had positive trends: edge slope, lacunarity, axis coherence, enclosed spaces, and color-and-tone entropy. All 20 evaluable trends remained significant after correction across the 24 planned comparisons. The four density comparisons lacked enough high-level outputs. In 19 of the 20 evaluable comparisons, the means increased in low–medium–high order; one enclosed-space comparison dipped at the middle level. Excluding retry images retained all 20 positive trends. [Analysis results][effects]
 
-[![Measurements at low, medium, and high requested levels, with uncertainty intervals and counts of returned images.](./assets/charts/02_prompt_response.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/02_prompt_response.png)
+[![Measurements at low, medium, and high requested levels, with uncertainty intervals and counts of returned images.](./assets/charts/02_prompt_response.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/02_prompt_response.png)
 
 *Figure 1. Points are means that give equal weight to the three templates; bars are 95% bootstrap intervals for those means. Each line represents one service-label/framing group. The count strip distinguishes initial returns from the final sample after recovery. High-density points are omitted because too few images returned.*
 
@@ -79,7 +79,7 @@ These results establish repeatable responses to the chosen instructions. Directi
 
 Adding finer trails can increase edge counts, dark coverage, and enclosed spaces together. Concentrating marks into clusters changes the distribution of both gaps and paint. Those connections appeared in the results: instructions aimed at one property often moved several measurements.
 
-[![Changes in all six measurements when each requested property moves from low to high.](./assets/charts/03_feature_spillovers.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/03_feature_spillovers.png)
+[![Changes in all six measurements when each requested property moves from low to high.](./assets/charts/03_feature_spillovers.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/03_feature_spillovers.png)
 
 *Figure 2. Rows are requested properties; columns are measurements. Red indicates an increase and blue a decrease. Values are descriptive changes in baseline standard-deviation units, averaged across framings. A narrow baseline spread makes these standardized changes larger. Shading stops at ±5; NA indicates insufficient observations.*
 
@@ -104,7 +104,7 @@ The baseline comparison asks how varied the outputs were without an explicit fea
 
 The generated baselines varied less on every measured feature. To show the difference, each generated group's standard deviation was divided by the Pollock sample's standard deviation. A ratio of 10% means one-tenth as much spread on that measurement.
 
-[![Spread of six measurements in generated baselines relative to the selected Pollock reproductions.](./assets/charts/04_feature_diversity.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/04_feature_diversity.png)
+[![Spread of six measurements in generated baselines relative to the selected Pollock reproductions.](./assets/charts/04_feature_diversity.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/04_feature_diversity.png)
 
 *Figure 3. Each point compares one baseline group's standard deviation with the same reference sample. Pollock is set to 100%. These are descriptive sample ratios; the figure includes baseline return counts and the comparison's prompt constraints.*
 
@@ -141,14 +141,14 @@ The measurement choices draw on research into scale, clustering, color, and dire
 - Fairbanks et al. (2025), [A question of Jackson Pollock's balance][fairbanks], using lacunarity and fractal analysis in a controlled poured-painting study.
 - Pedretti (2026), [Hidden evolving anisotropic order in Pollock's drip paintings][pedretti], using directional spatial analysis.
 
-[methods]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/docs/methods.md
-[prompts]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/src/design.py
-[effects]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/primary_effects.csv
-[controls]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/metric_positive_controls.csv
-[completion]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/collection_by_condition.csv
-[spread-data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/fidelity_spread_ratios.csv
-[overlap-data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/fidelity_features.csv
-[data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/features_primary.csv
+[methods]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/docs/methods.md
+[prompts]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/src/design.py
+[effects]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/primary_effects.csv
+[controls]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/metric_positive_controls.csv
+[completion]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/collection_by_condition.csv
+[spread-data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/fidelity_spread_ratios.csv
+[overlap-data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/fidelity_features.csv
+[data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/features_primary.csv
 [met]: https://www.metmuseum.org/art/collection/search/488978
 [nga]: https://www.nga.gov/artworks/55819-number-1-1950-lavender-mist
 [taylor]: https://www.nature.com/articles/20833

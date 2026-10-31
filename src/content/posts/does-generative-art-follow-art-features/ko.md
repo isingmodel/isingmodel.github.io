@@ -10,7 +10,7 @@ date: 2026-10-31
 
 각각 픽셀 100개로 이루어진 흑백 이미지 두 장을 생각해 보자. 두 이미지 모두 검은 픽셀이 30개라면 어두운 픽셀의 비율은 30%로 같다. 하지만 한쪽에서는 검은 픽셀이 한 덩어리로 모여 있고, 다른 쪽에서는 여러 개의 수평선을 이룰 수 있다. 면적 비율은 같아도 눈에 보이는 형태는 다르다. 이때 군집이나 방향을 측정하면 그 차이를 설명할 수 있다. 여러 특징량을 함께 쓰면 한 장의 이미지를 더 구체적으로 파악할 수 있는 이유다. 여러 작품을 모으면 각 특징량의 분포도 살펴볼 수 있다. 어떤 값은 자주 나타나고, 어떤 값은 드물게 나타나는지를 보는 것이다. 이를 통해 대표적인 값뿐 아니라 값들이 얼마나 넓게 퍼져 있는지도 비교할 수 있다. 두 집합의 평균적인 면적 비율이 같더라도, 한쪽에는 성긴 그림부터 빽빽한 그림까지 훨씬 다양한 이미지가 들어 있을 수 있다.
 
-잭슨 폴록의 작품은 오래전부터 이런 방식으로 분석되어 왔다. [Taylor, Micolich, Jonas][taylor]는 박스 카운팅(box counting)으로 폴록 그림의 무늬를 여러 크기의 격자에서 분석해, 프랙털 구조가 나타난다고 보고했다. 박스 카운팅은 이미지 위에 격자를 놓고 무늬가 걸쳐 있는 칸의 수를 센 뒤, 격자를 더 잘게 나누어 같은 계산을 반복하는 방법이다. 이후에는 [물감이 차지하는 영역과 그 경계][mureika-structure], [색상을 표현하는 방식의 영향][mureika-color], [물감을 부어 그린 그림의 군집과 빈틈][fairbanks], [폴록 작품의 방향성][pedretti] 등을 다룬 연구도 나왔다. 이런 연구를 통해 눈으로 보이는 그림의 특징을 수치로 나타내고 비교할 수 있다.
+잭슨 폴록의 작품은 오래전부터 이런 방식으로 분석되어 왔다. [Taylor, Micolich, Jonas][taylor]는 박스 카운팅(box counting)으로 폴록 그림의 무늬를 여러 크기의 격자에서 분석해, 프랙탈 구조가 나타난다고 보고했다. 박스 카운팅은 이미지 위에 격자를 놓고 무늬가 걸쳐 있는 칸의 수를 센 뒤, 격자를 더 잘게 나누어 같은 계산을 반복하는 방법이다. 이후에는 [물감이 차지하는 영역과 그 경계][mureika-structure], [색상을 표현하는 방식의 영향][mureika-color], [물감을 부어 그린 그림의 군집과 빈틈][fairbanks], [폴록 작품의 방향성][pedretti] 등을 다룬 연구도 나왔다. 이런 연구를 통해 눈으로 보이는 그림의 특징을 수치로 나타내고 비교할 수 있다.
 
 이 접근법은 AI가 만든 그림을 살펴볼 때도 유용하다. “폴록 스타일로 그려 달라”는 요청만으로는 무엇을 얼마나 비슷하게 그려야 하는지가 분명하지 않다. 반면 “물감 자국을 더 뭉치게 해 달라”거나 “수평 방향을 더 강하게 드러내 달라”는 요청은 눈으로 확인하고 수치로 측정할 수 있는 변화를 가리킨다. 이 실험은 그런 지시가 물감을 흘리거나 떨어뜨려 그리는 드립 페인팅의 생성 결과를 바꾸는지, 그리고 특정 특성의 수준을 지정하지 않고 생성한 이미지들이 선정된 폴록 작품 이미지와 어떻게 다른지를 살펴본다.
 
@@ -67,7 +67,7 @@ date: 2026-10-31
 
 네 집단 모두에서 에지 점유 기울기, 라쿠나리티, 방향 정렬도, 폐쇄 영역 수, 색상과 명도의 엔트로피가 상승 경향을 보였다. 원래 계획한 24개 비교를 대상으로 다중검정을 보정한 뒤에도, 평가할 수 있었던 20개 비교 모두에서 이 경향이 통계적으로 유의했다. 물감이 덮는 면적에 관한 네 비교는 높은 수준을 요청한 조건의 이미지가 너무 적어 평가하지 못했다. 평가 가능한 20개 중 19개에서는 평균값도 낮음–중간–높음 순서로 증가했다. 나머지 하나는 폐쇄 영역 수에 관한 비교로, 중간 수준에서 평균이 내려갔다. 재시도로 얻은 이미지를 제외해도 20개 비교의 상승 경향은 유지됐다. [분석 결과][effects]
 
-[![요청 수준이 낮음, 중간, 높음일 때의 측정값과 불확실성 구간, 실제로 받은 이미지 수를 보여 주는 그래프.](./assets/charts/02_prompt_response.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/02_prompt_response.png)
+[![요청 수준이 낮음, 중간, 높음일 때의 측정값과 불확실성 구간, 실제로 받은 이미지 수를 보여 주는 그래프.](./assets/charts/02_prompt_response.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/02_prompt_response.png)
 
 *그림 1. 점은 세 템플릿에 같은 가중치를 부여한 평균이며, 막대는 그 평균에 대한 95% 부트스트랩 신뢰구간이다. 각 선은 서비스 이름과 프롬프트 표현을 조합한 한 집단을 나타낸다. 아래쪽에는 첫 시도에서 받은 이미지 수와 재시도를 거친 최종 이미지 수를 따로 표시했다. 물감이 덮는 면적을 높게 요청한 조건은 이미지가 너무 적어 점을 표시하지 않았다.*
 
@@ -77,7 +77,7 @@ date: 2026-10-31
 
 가는 선을 더하면 에지의 수, 어두운 픽셀의 비율, 선으로 둘러싸인 공간이 함께 늘어날 수 있다. 물감 자국을 한곳에 모으면 물감과 빈틈의 분포가 모두 달라진다. 실험에서도 이런 관계가 나타났다. 한 가지 특성을 바꾸려는 지시가 여러 측정값을 함께 움직이는 경우가 많았다.
 
-[![각 특성을 낮은 수준에서 높은 수준으로 요청했을 때 여섯 측정값이 어떻게 달라졌는지 보여 주는 표.](./assets/charts/03_feature_spillovers.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/03_feature_spillovers.png)
+[![각 특성을 낮은 수준에서 높은 수준으로 요청했을 때 여섯 측정값이 어떻게 달라졌는지 보여 주는 표.](./assets/charts/03_feature_spillovers.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/03_feature_spillovers.png)
 
 *그림 2. 행은 요청한 특성, 열은 측정값이다. 빨강은 증가, 파랑은 감소를 뜻한다. 변화량은 기본 조건의 표준편차를 단위로 환산한 뒤, 두 프롬프트 표현의 결과를 평균한 것이다. 기본 조건의 표준편차가 작을수록 같은 변화도 이 단위에서는 크게 표시된다. 색의 범위는 ±5에서 제한했으며, NA는 관측값이 부족한 경우다.*
 
@@ -102,7 +102,7 @@ date: 2026-10-31
 
 기본 조건에서 생성한 이미지들은 모든 측정값의 표준편차가 폴록 표본보다 작았다. 이를 비교하기 위해 각 생성 집단의 표준편차를 폴록 표본의 표준편차로 나눴다. 비율이 10%라면 해당 측정값의 표준편차가 폴록 표본의 10분의 1이라는 뜻이다.
 
-[![기본 조건 생성 이미지에서 여섯 측정값의 표준편차가 폴록 표본에 비해 얼마나 작은지 보여 주는 그래프.](./assets/charts/04_feature_diversity.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/35f786fe82955b8d214e1bbfd8ba264e257cbe60/figures/blog/04_feature_diversity.png)
+[![기본 조건 생성 이미지에서 여섯 측정값의 표준편차가 폴록 표본에 비해 얼마나 작은지 보여 주는 그래프.](./assets/charts/04_feature_diversity.png)](https://raw.githubusercontent.com/isingmodel/generative-art-feature-study/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/figures/blog/04_feature_diversity.png)
 
 *그림 3. 각 점은 한 기본 조건 집단의 표준편차를 동일한 폴록 표본과 비교한 값이다. 폴록 표본을 100%로 두었다. 표본에서 계산한 비율을 보여 주는 그림이며, 기본 조건에서 실제로 받은 이미지 수와 프롬프트의 공통 조건도 함께 표시했다.*
 
@@ -133,20 +133,20 @@ date: 2026-10-31
 측정 항목은 폴록 작품의 크기별 구조, 군집, 색, 방향을 다룬 연구를 참고해 정했다. 관련 배경을 더 살펴보려면 다음 연구들이 도움이 된다.
 
 - Taylor, Micolich, Jonas (1999), [Fractal analysis of Pollock's drip paintings][taylor].
-- Jones-Smith, Mathur, Krauss (2009), [Drip paintings and fractal analysis][jones-smith]. 프랙털 기준으로 작품의 작가를 판별할 때 생기는 한계를 다룬다.
+- Jones-Smith, Mathur, Krauss (2009), [Drip paintings and fractal analysis][jones-smith]. 프랙탈 기준으로 작품의 작가를 판별할 때 생기는 한계를 다룬다.
 - Mureika, Dyer, Cupchik (2005), [Multifractal structure in nonrepresentational art][mureika-structure]. 물감이 차지하는 영역과 그 경계를 비교한다.
 - Mureika (2005), [Fractal dimensions in perceptual color space][mureika-color]. 색상을 표현하는 방식이 측정에 미치는 영향을 다룬다.
-- Fairbanks 외 (2025), [A question of Jackson Pollock's balance][fairbanks]. 통제된 조건에서 물감을 부어 그린 그림에 라쿠나리티와 프랙털 분석을 적용한다.
+- Fairbanks 외 (2025), [A question of Jackson Pollock's balance][fairbanks]. 통제된 조건에서 물감을 부어 그린 그림에 라쿠나리티와 프랙탈 분석을 적용한다.
 - Pedretti (2026), [Hidden evolving anisotropic order in Pollock's drip paintings][pedretti]. 방향에 따른 공간 구조를 분석한다.
 
-[methods]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/docs/methods.ko.md
-[prompts]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/src/design.py
-[effects]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/primary_effects.csv
-[controls]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/metric_positive_controls.csv
-[completion]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/collection_by_condition.csv
-[spread-data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/fidelity_spread_ratios.csv
-[overlap-data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/primary/fidelity_features.csv
-[data]: https://github.com/isingmodel/generative-art-feature-study/blob/35f786fe82955b8d214e1bbfd8ba264e257cbe60/results/features_primary.csv
+[methods]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/docs/methods.ko.md
+[prompts]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/src/design.py
+[effects]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/primary_effects.csv
+[controls]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/metric_positive_controls.csv
+[completion]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/collection_by_condition.csv
+[spread-data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/fidelity_spread_ratios.csv
+[overlap-data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/primary/fidelity_features.csv
+[data]: https://github.com/isingmodel/generative-art-feature-study/blob/b36efa8fb4396aeb131e821e8aa328d48f3e4b7c/results/features_primary.csv
 [met]: https://www.metmuseum.org/art/collection/search/488978
 [nga]: https://www.nga.gov/artworks/55819-number-1-1950-lavender-mist
 [taylor]: https://www.nature.com/articles/20833
